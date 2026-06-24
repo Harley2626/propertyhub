@@ -1,3 +1,4 @@
+import { clampPercent, ensureFinite } from "@/lib/format/numbers";
 import { calculateTransferDutyBreakdown } from "./transfer-duty";
 
 export type DepositResult = {
@@ -23,15 +24,16 @@ export function calculateDeposit(
     };
   }
 
-  const depositAmount = propertyPrice * (depositPercent / 100);
-  const remainingToSave = Math.max(0, depositAmount - amountSaved);
+  const depositAmount = propertyPrice * (clampPercent(depositPercent, 100) / 100);
+  const remainingToSave = Math.max(0, depositAmount - Math.max(0, amountSaved));
   const transfer = calculateTransferDutyBreakdown(propertyPrice);
-  const totalUpfrontCosts =
-    depositAmount + transfer.transferDuty + transfer.transferCosts;
+  const totalUpfrontCosts = ensureFinite(
+    depositAmount + transfer.transferDuty + transfer.transferCosts,
+  );
 
   return {
-    depositAmount,
-    remainingToSave,
+    depositAmount: ensureFinite(depositAmount),
+    remainingToSave: ensureFinite(remainingToSave),
     transferDuty: transfer.transferDuty,
     transferCosts: transfer.transferCosts,
     totalUpfrontCosts,

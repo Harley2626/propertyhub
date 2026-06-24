@@ -1,7 +1,13 @@
-import { calculateCompoundInterest } from "./compound-interest";
+import { clampRatePercent } from "@/lib/format/numbers";
+import {
+  calculateCompoundInterest,
+  calculateRequiredMonthlyContribution,
+} from "./compound-interest";
 
 export type RetirementResult = {
   projectedSavings: number;
+  totalContributions: number;
+  totalInterest: number;
   requiredNestEgg: number;
   monthlyShortfall: number;
   onTrack: boolean;
@@ -16,14 +22,15 @@ export function calculateRetirement(
   currentSavings: number,
   desiredMonthlyIncome: number,
   monthlyContribution: number,
-  annualReturn: number,
+  annualReturnPercent: number,
 ): RetirementResult {
   const yearsToRetirement = Math.max(0, retirementAge - currentAge);
+  const annualRate = clampRatePercent(annualReturnPercent);
 
   const projected = calculateCompoundInterest(
     currentSavings,
     monthlyContribution,
-    annualReturn,
+    annualRate,
     yearsToRetirement,
   );
 
@@ -35,22 +42,21 @@ export function calculateRetirement(
   const gap = requiredNestEgg - projected.futureValue;
   const onTrack = gap <= 0;
 
-  let monthlyShortfall = 0;
-  if (!onTrack && yearsToRetirement > 0) {
-    const months = yearsToRetirement * 12;
-    const monthlyRate = annualReturn / 100 / 12;
-    if (monthlyRate === 0) {
-      monthlyShortfall = gap / months;
-    } else {
-      const factor = Math.pow(1 + monthlyRate, months);
-      monthlyShortfall = (gap * monthlyRate) / (factor - 1);
-    }
-  }
+  const monthlyShortfall = onTrack
+    ? 0
+    : calculateRequiredMonthlyContribution(
+        requiredNestEgg,
+        currentSavings,
+        annualRate,
+        yearsToRetirement,
+      ) - monthlyContribution;
 
   return {
     projectedSavings: projected.futureValue,
+    totalContributions: projected.totalContributions,
+    totalInterest: projected.totalInterest,
     requiredNestEgg,
-    monthlyShortfall,
+    monthlyShortfall: Math.max(0, monthlyShortfall),
     onTrack,
     yearsToRetirement,
   };

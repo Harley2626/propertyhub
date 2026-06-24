@@ -1,12 +1,15 @@
 {
-  "name": "propertyhub",
+  "name": "propertypilot",
   "version": "0.1.0",
   "private": true,
+  "description": "PropertyPilot — Property & Finance Tools for South Africans. Free calculators, guides, and tools.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "node --import tsx --test lib/**/*.test.ts",
+    "test:validation": "node --import tsx --test lib/calculators/validation/suite.test.ts"
   },
   "dependencies": {
     "lucide-react": "^1.21.0",
@@ -22,6 +25,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "tsx": "^4.22.4"
   }
 }

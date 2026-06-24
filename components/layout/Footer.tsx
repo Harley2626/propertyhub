@@ -26,13 +26,12 @@ export function Footer() {
           <div className="sm:col-span-2 lg:col-span-2">
             <Link href="/" className="inline-flex items-center gap-2 text-lg font-bold">
               <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent text-xs font-bold text-white">
-                PH
+                PP
               </span>
-              Property<span className="text-accent">Hub</span>
+              Property<span className="text-accent">Pilot</span>
             </Link>
             <p className="mt-4 max-w-md text-sm leading-relaxed text-muted">
-              Free property and finance calculators built for South Africans.
-              Make smarter decisions on bonds, transfer duty, tax, and more.
+              {siteConfig.description}
             </p>
           </div>
 

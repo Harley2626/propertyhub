@@ -20,7 +20,7 @@ export function buildToolMetadata(slug: string): Metadata {
       tool.title.toLowerCase(),
       `${tool.title.toLowerCase()} south africa`,
       category.title.toLowerCase(),
-      "propertyhub",
+      "propertypilot",
       "free calculator",
     ],
     alternates: { canonical: pageUrl },
@@ -29,6 +29,11 @@ export function buildToolMetadata(slug: string): Metadata {
       description: tool.description,
       url: pageUrl,
       type: "website",
+      siteName: siteConfig.name,
+    },
+    twitter: {
+      title: `${tool.title} | ${siteConfig.name}`,
+      description: tool.description,
     },
   };
 }

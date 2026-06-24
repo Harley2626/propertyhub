@@ -7,6 +7,7 @@ type NumberInputProps = {
   label: string;
   value: string;
   onChange: (value: string) => void;
+  onBlur?: () => void;
   placeholder?: string;
   suffix?: string;
   decimals?: number;
@@ -17,15 +18,10 @@ export function NumberInput({
   label,
   value,
   onChange,
+  onBlur,
   placeholder = "e.g. 10",
   suffix,
-  decimals = 0,
 }: NumberInputProps) {
-  function handleChange(raw: string) {
-    const parsed = parseNumberInput(raw);
-    onChange(parsed > 0 ? formatNumberInput(parsed, decimals) : "");
-  }
-
   return (
     <div>
       <label htmlFor={id} className="block text-sm font-medium text-foreground">
@@ -38,7 +34,8 @@ export function NumberInput({
           type="text"
           inputMode="decimal"
           value={value}
-          onChange={(e) => handleChange(e.target.value)}
+          onChange={(e) => onChange(e.target.value)}
+          onBlur={onBlur}
           placeholder={placeholder}
           className={`w-full rounded-xl border border-border bg-background py-3 text-sm text-foreground placeholder:text-muted/60 outline-none transition-colors focus:border-accent focus:ring-2 focus:ring-accent/20 ${suffix ? "pl-4 pr-10" : "px-4"}`}
         />
@@ -50,4 +47,9 @@ export function NumberInput({
       </div>
     </div>
   );
+}
+
+export function formatNumberOnBlur(raw: string, decimals = 0): string {
+  const parsed = parseNumberInput(raw);
+  return parsed > 0 ? formatNumberInput(parsed, decimals) : "";
 }

@@ -28,9 +28,13 @@ export function useNumberInput(initial = 0, decimals = 0) {
   const value = useMemo(() => parseNumberInput(inputValue), [inputValue]);
 
   function onChange(raw: string) {
-    const parsed = parseNumberInput(raw);
+    setInputValue(raw);
+  }
+
+  function onBlur() {
+    const parsed = parseNumberInput(inputValue);
     setInputValue(parsed > 0 ? formatNumberInput(parsed, decimals) : "");
   }
 
-  return { inputValue, value, onChange, setInputValue };
+  return { inputValue, value, onChange, onBlur, setInputValue };
 }

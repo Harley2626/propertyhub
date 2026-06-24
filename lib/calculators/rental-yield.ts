@@ -1,3 +1,5 @@
+import { ensureFinite } from "@/lib/format/numbers";
+
 export type RentalYieldResult = {
   grossYield: number;
   netYield: number;
@@ -6,6 +8,7 @@ export type RentalYieldResult = {
   netAnnualIncome: number;
 };
 
+/** Gross and net rental yield as percentages of property value. */
 export function calculateRentalYield(
   propertyValue: number,
   monthlyRent: number,
@@ -21,17 +24,17 @@ export function calculateRentalYield(
     };
   }
 
-  const annualRent = monthlyRent * 12;
-  const annualExpenses = monthlyExpenses * 12;
+  const annualRent = Math.max(0, monthlyRent) * 12;
+  const annualExpenses = Math.max(0, monthlyExpenses) * 12;
   const netAnnualIncome = annualRent - annualExpenses;
-  const grossYield = (annualRent / propertyValue) * 100;
-  const netYield = (netAnnualIncome / propertyValue) * 100;
+  const grossYield = ensureFinite((annualRent / propertyValue) * 100);
+  const netYield = ensureFinite((netAnnualIncome / propertyValue) * 100);
 
   return {
     grossYield,
     netYield,
-    annualRent,
-    annualExpenses,
-    netAnnualIncome,
+    annualRent: ensureFinite(annualRent),
+    annualExpenses: ensureFinite(annualExpenses),
+    netAnnualIncome: ensureFinite(netAnnualIncome),
   };
 }

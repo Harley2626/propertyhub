@@ -1,7 +1,4 @@
-export type AgeGroup = "under65" | "65to74" | "75plus";
-
-/** SARS tax year 2027 (1 March 2026 – 28 February 2027) */
-export const TAX_YEAR_LABEL = "2026/2027";
+import { ensureFinite } from "@/lib/format/numbers";
 
 export type IncomeTaxResult = {
   grossTax: number;
@@ -12,6 +9,11 @@ export type IncomeTaxResult = {
   effectiveRate: number;
   marginalRate: number;
 };
+
+export type AgeGroup = "under65" | "65to74" | "75plus";
+
+/** SARS tax year 2027 (1 March 2026 – 28 February 2027) */
+export const TAX_YEAR_LABEL = "2026/2027";
 
 function calculateGrossTax(taxableIncome: number): number {
   if (taxableIncome <= 0) return 0;
@@ -58,13 +60,16 @@ export function calculateIncomeTax(
   annualTaxableIncome: number,
   ageGroup: AgeGroup,
 ): IncomeTaxResult {
-  const grossTax = calculateGrossTax(annualTaxableIncome);
+  const income = Math.max(0, annualTaxableIncome);
+  const grossTax = ensureFinite(calculateGrossTax(income));
   const rebates = getRebates(ageGroup);
-  const netTax = Math.max(0, grossTax - rebates);
-  const monthlyTax = netTax / 12;
-  const takeHomeMonthly = Math.max(0, annualTaxableIncome / 12 - monthlyTax);
+  const netTax = ensureFinite(Math.max(0, grossTax - rebates));
+  const monthlyTax = ensureFinite(netTax / 12);
+  const takeHomeMonthly = ensureFinite(
+    Math.max(0, income / 12 - monthlyTax),
+  );
   const effectiveRate =
-    annualTaxableIncome > 0 ? (netTax / annualTaxableIncome) * 100 : 0;
+    income > 0 ? ensureFinite((netTax / income) * 100) : 0;
 
   return {
     grossTax,
@@ -73,6 +78,6 @@ export function calculateIncomeTax(
     monthlyTax,
     takeHomeMonthly,
     effectiveRate,
-    marginalRate: getMarginalRate(annualTaxableIncome),
+    marginalRate: getMarginalRate(income),
   };
 }

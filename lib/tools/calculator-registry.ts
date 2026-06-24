@@ -4,6 +4,7 @@ import { BondCalculator } from "@/components/calculators/BondCalculator";
 import { CapitalGainsTaxCalculator } from "@/components/calculators/CapitalGainsTaxCalculator";
 import { CompoundInterestCalculator } from "@/components/calculators/CompoundInterestCalculator";
 import { DepositCalculator } from "@/components/calculators/DepositCalculator";
+import { EmergencyFundCalculator } from "@/components/calculators/EmergencyFundCalculator";
 import { IncomeTaxCalculator } from "@/components/calculators/IncomeTaxCalculator";
 import { InflationCalculator } from "@/components/calculators/InflationCalculator";
 import { RentalYieldCalculator } from "@/components/calculators/RentalYieldCalculator";
@@ -22,6 +23,7 @@ export const calculatorRegistry: Record<string, ComponentType> = {
   "compound-interest-calculator": CompoundInterestCalculator,
   "retirement-calculator": RetirementCalculator,
   "inflation-calculator": InflationCalculator,
+  "emergency-fund-calculator": EmergencyFundCalculator,
   "income-tax-calculator": IncomeTaxCalculator,
   "vat-calculator": VatCalculator,
   "capital-gains-tax-calculator": CapitalGainsTaxCalculator,
