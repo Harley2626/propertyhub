@@ -51,7 +51,7 @@ export function buildAreaSchema(area: AreaGuide) {
       headline: area.title,
       description: area.description,
       datePublished: area.publishedDate,
-      dateModified: area.updatedDate,
+      dateModified: area.lastReviewed,
       inLanguage: "en-ZA",
       mainEntityOfPage: {
         "@type": "WebPage",

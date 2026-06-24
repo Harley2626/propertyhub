@@ -25,6 +25,11 @@ export type CalculatorLink = {
   description: string;
 };
 
+export type RelatedGuideLink = {
+  href: string;
+  label: string;
+};
+
 export type AreaGuide = {
   slug: string;
   title: string;
@@ -33,14 +38,19 @@ export type AreaGuide = {
   province: string;
   publishedDate: string;
   updatedDate: string;
+  lastReviewed: string;
   keywords?: string[];
   averagePrices: PropertyPriceRange[];
   popularSuburbs: PopularSuburb[];
   prosAndCons: ProsAndCons;
+  /** Local market structure and buyer context — not investment tactics. */
   marketOverview: string[];
+  /** Investor-focused strategies, property types, and risks. */
   propertyInvestment: string[];
+  /** Yield mechanics, costs, and tenant matching for this metro. */
   rentalYield: string[];
-  calculatorLinks: CalculatorLink[];
+  calculatorLinks?: CalculatorLink[];
+  relatedGuides?: RelatedGuideLink[];
   faqs: AreaFAQ[];
 };
 

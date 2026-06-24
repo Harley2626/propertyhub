@@ -1,3 +1,4 @@
+import { AREA_ADVICE_DISCLAIMER } from "@/lib/areas/defaults";
 import Link from "next/link";
 
 type AreaHeroProps = {
@@ -5,7 +6,7 @@ type AreaHeroProps = {
   description: string;
   city: string;
   province: string;
-  updatedDate: string;
+  lastReviewed: string;
 };
 
 export function AreaHero({
@@ -13,13 +14,13 @@ export function AreaHero({
   description,
   city,
   province,
-  updatedDate,
+  lastReviewed,
 }: AreaHeroProps) {
   const formattedDate = new Intl.DateTimeFormat("en-ZA", {
     day: "numeric",
     month: "long",
     year: "numeric",
-  }).format(new Date(updatedDate));
+  }).format(new Date(lastReviewed));
 
   return (
     <section className="relative overflow-hidden border-b border-border bg-muted-bg">
@@ -42,7 +43,7 @@ export function AreaHero({
           <span className="inline-flex rounded-full bg-muted-bg px-3 py-1 text-xs font-semibold text-muted">
             {province}
           </span>
-          <span className="text-sm text-muted">Updated {formattedDate}</span>
+          <span className="text-sm text-muted">Last reviewed: {formattedDate}</span>
         </div>
 
         <h1 className="mt-4 max-w-4xl text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
@@ -50,6 +51,9 @@ export function AreaHero({
         </h1>
         <p className="mt-4 max-w-3xl text-lg leading-relaxed text-muted">
           {description}
+        </p>
+        <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted">
+          {AREA_ADVICE_DISCLAIMER}
         </p>
       </div>
     </section>

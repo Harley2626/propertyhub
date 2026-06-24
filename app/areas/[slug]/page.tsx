@@ -32,7 +32,7 @@ export default async function AreaPage({ params }: Props) {
         description={area.description}
         city={area.city}
         province={area.province}
-        updatedDate={area.updatedDate}
+        lastReviewed={area.lastReviewed}
       />
       <AreaPageLayout area={area} />
     </>

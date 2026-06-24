@@ -1,5 +1,10 @@
+import { RelatedGuidesSection } from "@/components/areas/RelatedGuidesSection";
 import { FAQSection } from "@/components/tools/FAQSection";
-import { Button } from "@/components/ui/Button";
+import {
+  AREA_PRICE_DISCLAIMER,
+  defaultAreaCalculatorLinks,
+  defaultRelatedGuides,
+} from "@/lib/areas/defaults";
 import type { AreaGuide } from "@/lib/areas/types";
 import Link from "next/link";
 
@@ -40,6 +45,9 @@ function ContentSection({
 }
 
 export function AreaPageLayout({ area }: AreaPageLayoutProps) {
+  const calculatorLinks = area.calculatorLinks ?? defaultAreaCalculatorLinks;
+  const relatedGuides = area.relatedGuides ?? defaultRelatedGuides;
+
   return (
     <article className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
       <div className="mx-auto max-w-3xl space-y-16">
@@ -51,8 +59,8 @@ export function AreaPageLayout({ area }: AreaPageLayoutProps) {
             Average property prices
           </h2>
           <p className="mt-3 text-muted">
-            Indicative price ranges in {area.city}. Figures vary by suburb,
-            condition, and property type.
+            Broad indicative ranges for {area.city}. Confirm against current
+            listings before making an offer.
           </p>
           <div className="mt-6 overflow-hidden rounded-2xl border border-border bg-card">
             <table className="w-full text-left text-sm">
@@ -83,6 +91,9 @@ export function AreaPageLayout({ area }: AreaPageLayoutProps) {
               </tbody>
             </table>
           </div>
+          <p className="mt-4 text-sm leading-relaxed text-muted">
+            {AREA_PRICE_DISCLAIMER}
+          </p>
         </section>
 
         <section aria-labelledby="popular-suburbs-heading">
@@ -172,46 +183,38 @@ export function AreaPageLayout({ area }: AreaPageLayoutProps) {
           paragraphs={area.rentalYield}
         />
 
+        <RelatedGuidesSection guides={relatedGuides} city={area.city} />
+
         <section
           id="calculators"
           aria-labelledby="calculators-heading"
-          className="scroll-mt-28 rounded-2xl border border-accent/20 bg-accent-light/50 p-6 sm:p-8"
+          className="scroll-mt-28 rounded-2xl border border-border bg-card p-6 sm:p-8"
         >
-          <p className="text-sm font-semibold uppercase tracking-wider text-accent">
-            Free tools
-          </p>
           <h2
             id="calculators-heading"
-            className="mt-2 text-xl font-semibold tracking-tight text-foreground"
+            className="text-xl font-semibold tracking-tight text-foreground"
           >
-            Calculators for {area.city} buyers
+            Related calculators
           </h2>
-          <p className="mt-3 leading-relaxed text-muted">
-            Model bond repayments, affordability, rental yield, and transfer
-            costs before you buy or invest in {area.city}.
+          <p className="mt-3 text-sm leading-relaxed text-muted">
+            Free tools to model bond repayments, affordability, rental yield,
+            and transfer duty for purchases in {area.city}.
           </p>
-          <ul className="mt-6 space-y-4">
-            {area.calculatorLinks.map((calc) => (
+          <ul className="mt-6 space-y-3">
+            {calculatorLinks.map((calc) => (
               <li key={calc.href}>
                 <Link
                   href={calc.href}
-                  className="group block rounded-xl border border-border/80 bg-card p-4 transition-colors hover:border-accent/30"
+                  className="group flex flex-col rounded-xl border border-border/80 bg-muted-bg/50 px-4 py-3 transition-colors hover:border-accent/30 hover:bg-card"
                 >
                   <span className="font-medium text-foreground group-hover:text-accent">
                     {calc.label}
                   </span>
-                  <span className="mt-1 block text-sm text-muted">
-                    {calc.description}
-                  </span>
+                  <span className="text-sm text-muted">{calc.description}</span>
                 </Link>
               </li>
             ))}
           </ul>
-          <div className="mt-6">
-            <Button href={area.calculatorLinks[0]?.href ?? "/tools/bond-calculator"}>
-              Open {area.calculatorLinks[0]?.label ?? "Bond Calculator"}
-            </Button>
-          </div>
         </section>
       </div>
 

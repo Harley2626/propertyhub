@@ -1,15 +1,15 @@
-import { defaultAreaCalculatorLinks } from "../defaults";
 import type { AreaGuide } from "../types";
 
 export const pretoriaArea: AreaGuide = {
   slug: "pretoria",
   title: "Buying Property in Pretoria",
   description:
-    "Guide to buying property in Pretoria and Tshwane — Centurion, Waterkloof, Menlyn, price ranges, rental yields, government-sector demand, and 2025 market insights.",
+    "Guide to buying property in Pretoria and Tshwane — eastern suburbs, Centurion, indicative prices, and local buyer considerations.",
   city: "Pretoria",
   province: "Gauteng",
   publishedDate: "2025-06-01",
   updatedDate: "2025-06-24",
+  lastReviewed: "2025-06-24",
   keywords: [
     "buying property pretoria",
     "pretoria property prices",
@@ -17,7 +17,6 @@ export const pretoriaArea: AreaGuide = {
     "waterkloof property",
     "pretoria rental yield",
     "property investment pretoria",
-    "propertypilot",
   ],
   averagePrices: [
     {
@@ -41,133 +40,96 @@ export const pretoriaArea: AreaGuide = {
     {
       name: "Centurion",
       description:
-        "Strategic midpoint between Pretoria and Johannesburg with Gautrain, Mall of Africa access, and strong corporate and logistics employment. Mix of estates, apartments, and family homes.",
+        "Midpoint between Pretoria and Johannesburg with Gautrain access, Centurion Mall, and mix of estates, apartments, and family homes.",
     },
     {
       name: "Waterkloof / Brooklyn",
       description:
-        "Prestige eastern suburbs with embassies, jacaranda-lined streets, and established luxury homes. Strong owner-occupier demand and limited new supply support pricing.",
+        "Prestige eastern suburbs with embassies, established luxury homes, and strong owner-occupier demand.",
     },
     {
       name: "Menlyn / Lynnwood",
       description:
-        "Commercial and residential node around Menlyn Maine and University of Pretoria proximity. Apartments and townhouses suit professionals and students.",
+        "Commercial and residential node near Menlyn Maine and the University of Pretoria. Apartments and townhouses suit professionals and students.",
     },
     {
       name: "Montana",
       description:
-        "Northern growth corridor popular with first-time buyers and young families seeking newer stock, schools, and relative affordability within Tshwane.",
+        "Northern growth corridor with newer stock popular among first-time buyers and young families.",
     },
     {
       name: "Irene / Cornwall Hill",
       description:
-        "Estate and smallholding lifestyle south of Pretoria with country feel, equestrian culture, and family-oriented security estates at premium price points.",
+        "Estate lifestyle south of Pretoria with equestrian culture and family-oriented security estates.",
     },
     {
       name: "Hatfield",
       description:
-        "Student and young professional hub adjacent to UP with strong rental demand for apartments and room letting. Higher turnover but consistent tenant pool.",
+        "Student hub adjacent to UP with consistent rental demand and higher tenant turnover.",
     },
   ],
   prosAndCons: {
     pros: [
-      "More accessible pricing than Sandton in many comparable suburbs",
-      "Government, diplomatic, and university employment anchor demand",
-      "Centurion offers dual-city commute option to Joburg and Pretoria CBD",
-      "Space and stand sizes often larger than coastal metros at same price",
-      "Strong family-oriented suburbs with established schools",
+      "Often more space per rand than premium Sandton nodes",
+      "Government, diplomatic, and university employment base",
+      "Centurion suits commuters working in Pretoria or northern Johannesburg",
+      "Established family suburbs with schools and large stands",
     ],
     cons: [
-      "Slower capital growth in some mature suburbs versus northern Joburg",
-      "Traffic on N1, R21, and Pretoria east-west corridors at peak",
-      "Municipal service inconsistencies across Tshwane wards",
-      "Student areas carry higher turnover and wear for landlords",
-      "Premium eastern suburbs have high entry barriers for first-time buyers",
+      "Capital growth varies — some mature suburbs move slowly",
+      "Peak traffic on N1, R21, and east-west routes",
+      "Municipal service quality differs by ward",
+      "Student areas involve higher turnover for landlords",
     ],
   },
   marketOverview: [
-    "Pretoria — officially part of the City of Tshwane metropolitan municipality — combines government administration, diplomatic presence, university life, and Centurion's corporate corridor. The market splits between prestige eastern suburbs (Waterkloof, Brooklyn, Lynnwood), northern growth corridors (Montana, Wonderboom), Centurion as a quasi-independent economic node, and affordable western and central areas.",
-    "Public sector employment and SOE presence provide a stable buyer and tenant base less volatile than pure private-sector mining towns. University of Pretoria drives Hatfield and Menlyn rental demand. Diplomatic missions support premium eastern suburb ownership. Centurion captures logistics, retail, and commuters splitting time between Pretoria CBD and Johannesburg Sandton via Gautrain and N1.",
-    "2024–2025 pricing reflected national rate pressure with steady transacting in Montana, Centurion, and Garsfontein family segments. Waterkloof and Brooklyn luxury stock moved more slowly at overpriced levels but remained liquid when realistically priced. First-time buyers targeted Centurion apartments and Montana townhouses under R1.2 million.",
-    "Jacaranda city lifestyle appeals to families prioritising space — stands of 800m² to 1,200m² in Garsfontein and Faerie Glen offer more land per rand than Cape Town equivalents. Buyers must model rates on larger stands and pool maintenance in affordability calculations using the Bond and Affordability calculators.",
-    "Transfer duty on a R1.8 million Pretoria home remains manageable under 2025 brackets but combined with R180,000 deposit and R80,000 transfer costs requires disciplined saving. Use Deposit and Transfer Duty calculators before accepting OTPs in competitive Montana and Centurion listings.",
-    "Tshwane's jacaranda season and heat define lifestyle — properties with established shade trees and pool infrastructure attract premium from relocating Gauteng families. Verify pool compliance certificates and water restrictions compliance on transfer.",
-    "Dual-city couples increasingly choose Centurion when one partner works in Sandton and another in Pretoria CBD — model commute times at peak before assuming Centurion neutrality saves hours daily.",
-    "Pretoria's established eastern suburbs show lower churn than student nodes — owner-occupiers dominate Waterkloof and Brooklyn, supporting price stability through cycles. Western Pretoria offers value for buyers prioritising stand size over prestige address.",
-    "Government salary bands and annual public sector increases indirectly support mid-market Pretoria pricing — affordability in Montana correlates with entry-level public servant and teacher household incomes seeking first homes.",
-    "Brooklyn and Menlyn fringe apartments suit young professionals at lower entry than Waterkloof freehold — compare sectional title levy trajectories over five years when choosing between similar purchase prices.",
-    "Pretoria sellers often include irrigation systems and boreholes on larger stands — verify water use licences and municipal compliance before relying on borehole cost savings in household budgets.",
-    "Winter heating in Pretoria increases electricity costs on older homes with poor insulation — factor seasonal utility spikes into tenant-inclusive lease quotes and personal affordability models.",
-    "Compare bond instalments on Montana townhouses against equivalent Centurion apartments using PropertyPilot calculators before choosing between similar monthly housing budgets.",
+    "Pretoria (City of Tshwane) combines government and diplomatic precincts in the east, university life around Hatfield and Menlyn, northern growth corridors such as Montana, and Centurion as a largely separate commercial-residential node between Pretoria and Johannesburg.",
+    "Public sector and university employment support owner-occupier and rental demand. Centurion attracts commuters who split time between Pretoria CBD and Sandton via the N1 and Gautrain. Western Pretoria often offers lower entry pricing than Waterkloof or Brooklyn.",
+    "Freehold stands of 800m² or more are common in eastern family suburbs — attractive for space but meaningfully higher rates and maintenance than compact sectional title. Pool compliance and irrigation borehole licences should be verified on transfer.",
+    "First-time buyers often target Centurion apartments and Montana townhouses below roughly R1.2 million. Budget transfer duty and legal fees in cash alongside any deposit — see our transfer duty guide for bracket details.",
   ],
   propertyInvestment: [
-    "Pretoria investors focus on Hatfield and Menlyn student apartments, Centurion corporate rentals near offices and Gautrain, and Montana family homes for long-term leases. Government relocation patterns create periodic demand spikes in eastern suburbs near embassies and departments.",
-    "Student accommodation can yield strong gross returns on multi-tenant leases but requires compliance with university calendar voids, fire safety expectations, and active management. Verify sectional title rules on maximum occupants before purchasing for student letting.",
-    "Centurion buy-to-let benefits from tenants working at Irene Link, Midrand-adjacent campuses, and logistics parks. Two-bedroom apartments near Gautrain stations command premiums from commuters avoiding N1 peak traffic.",
-    "Luxury eastern suburb investment is primarily capital preservation — Waterkloof yields may fall below 4% gross but attract diplomatic and executive tenants on long leases at high absolute rents. Suitable for lower-leverage investors prioritising tenant quality over yield.",
-    "Model each asset class with the Rental Yield Calculator. Compare Centurion apartment net yield against Montana townhouse yield — different tenant profiles, levy structures, and maintenance profiles produce materially different outcomes at similar purchase prices.",
-    "Military and defence industry employment around Pretoria supports rental demand in secure suburbs near major bases — discreet marketing channels and longer lease terms characterise this tenant segment. SOE restructuring can shift departmental locations — monitor news when buying near specific campuses.",
-    "University of Pretoria expansion plans and Hatfield redevelopment influence nearby rental supply — new student accommodation schemes may compete with private landlords on price. Centurion Hub and Irene Link retail growth supports residential demand in walking-distance apartments.",
-    "Diplomatic tenants often require furnished homes with security upgrades — capital layout for quality furniture and alarm systems must be recovered through higher monthly rent and longer lease terms in Brooklyn and Lynnwood.",
-    "Montana and Rooihuiskraal continue releasing new townhouse stock — compare levy projections on greenfield estates against established suburbs with mature HOAs before committing to off-plan purchases.",
+    "Hatfield and Menlyn apartments suit student and young professional tenants. Expect active management and December–January vacancy unless you plan for it.",
+    "Centurion two-bedrooms near Gautrain stations may appeal to commuters avoiding peak N1 traffic. Verify levy trajectories on newer estates before off-plan purchases.",
+    "Waterkloof and Brooklyn luxury homes may attract diplomatic or executive tenants on long leases — often lower gross yield but higher absolute rent and tenant quality.",
+    "Estate properties in Irene and Cornwall Hill require careful review of HOA rules on pets, short-term letting, and exterior changes before buying for rental.",
   ],
   rentalYield: [
-    "Pretoria gross rental yields commonly range from 6% to 9% in student and northern corridor nodes, with premium eastern suburbs at 4% to 6%. Centurion apartments often achieve 6% to 7.5% gross; Hatfield stock can exceed 8% on multi-tenant student arrangements.",
-    "Net yields deduct Tshwane municipal rates, body corporate levies (typically lower than Sandton towers but variable in estates), insurance, and maintenance. Large freehold homes with pools and gardens carry higher maintenance as percentage of rent.",
-    "Vacancy in student nodes spikes December to January — underwrite 10 months effective occupancy unless offering short-term corporate lets in off-season. Family homes in Montana and Garsfontein typically lease 12 months with lower void risk.",
-    "Corporate diplomatic tenants in Waterkloof seek quality finishes, security, and backup power — achievable rents of R25,000 to R45,000 on three-bedroom homes justify lower gross yield percentages for investors prioritising payment certainty.",
-    "Use PropertyPilot's Rental Yield Calculator with comparable listings from local agents. Cross-check bond service costs — at current rates, yield-focused investors need gross above roughly 7% in many segments to cover interest on 90% LTV financing before capital paydown benefits.",
-    "Rentals in estate properties often include HOA rules on pets, short-term letting, and exterior modifications — vet conduct rules before purchasing investment stock in Irene, Cornwall Hill, or Centurion estates. Levy escalations above CPI in underfunded HOAs erode net yield quickly.",
-    "Hatfield redevelopment and student accommodation supply growth may compress yields in oversupplied streets — walk the block and count competing listings before closing on student-focused investments.",
-  ],
-  calculatorLinks: [
-    ...defaultAreaCalculatorLinks,
-    {
-      href: "/tools/rent-vs-buy-calculator",
-      label: "Rent vs Buy Calculator",
-      description: "Compare renting versus buying in Pretoria.",
-    },
+    "Student multi-tenant arrangements can show high gross yields on paper but need active compliance with fire safety, occupancy limits, and university calendar gaps.",
+    "Family homes in Montana and Garsfontein often lease on 12-month terms with lower void risk than student nodes.",
+    "Net yield on large freehold homes must include pool, garden, and security maintenance — costs that scale with stand size.",
+    "Compare bond service cost to achievable rent for each property. Our rental yield and bond guides explain how to model gross versus net returns conservatively.",
   ],
   faqs: [
     {
-      question: "Is Pretoria cheaper than Johannesburg for property?",
+      question: "Is Pretoria cheaper than Johannesburg?",
       answer:
-        "Many Pretoria suburbs offer more space per rand than Sandton or Rosebank equivalents. Centurion pricing sits between Pretoria and Joburg north depending on node. Premium Waterkloof rivals Joburg luxury pricing.",
+        "Many Pretoria suburbs offer more space per rand than Sandton or Rosebank. Centurion pricing sits between Pretoria and northern Johannesburg depending on the node. Premium Waterkloof can rival Joburg luxury pricing.",
     },
     {
-      question: "Which Pretoria suburbs are best for families?",
+      question: "Which Pretoria suburbs suit families?",
       answer:
-        "Garsfontein, Faerie Glen, Montana, Irene, and Centurion estates offer schools, space, and family amenities. Research school feeder zones and commute routes before deciding.",
+        "Garsfontein, Faerie Glen, Montana, Irene, and Centurion estates are common choices. Confirm school feeders and commute routes for your household.",
     },
     {
       question: "Is Centurion part of Pretoria?",
       answer:
-        "Centurion falls within the City of Tshwane metro and functionally bridges Pretoria and Johannesburg. Many buyers choose Centurion for dual-city employment access.",
+        "Centurion falls within the City of Tshwane metro. Functionally it bridges Pretoria and Johannesburg, which is why many dual-city commuters buy there.",
     },
     {
-      question: "What rental yield can I expect in Pretoria?",
+      question: "What rental yield can I expect?",
       answer:
-        "Gross yields of 6% to 9% are common in student and northern suburbs; premium eastern suburbs often yield 4% to 6%. Model net yield after levies and rates with the Rental Yield Calculator.",
+        "Gross yields vary by suburb and tenant type — student nodes differ from Waterkloof executive rentals. Model net yield after levies, rates, and maintenance for each property.",
     },
     {
-      question: "Is Pretoria good for property investment?",
+      question: "What are Waterkloof price levels?",
       answer:
-        "Stable employment base and university demand support rentals. Yields can exceed Cape Town premium nodes on lower entry prices. Suburb and tenant-type selection determines success.",
+        "Entry luxury homes often start above R3 million, with prestige stock higher. Limited supply in quality streets can support pricing, but always verify current listings.",
     },
     {
-      question: "What are Waterkloof property prices?",
+      question: "What should first-time buyers budget?",
       answer:
-        "Entry luxury homes typically start above R3 million; prestige stock commonly R5 million to R10 million plus. Limited supply supports long-term pricing in quality pockets.",
-    },
-    {
-      question: "Do government employees favour Pretoria property?",
-      answer:
-        "Public sector employment supports owner-occupier and rental demand, particularly near departments, hospitals, and diplomatic precincts in eastern suburbs.",
-    },
-    {
-      question: "What should first-time buyers budget in Pretoria?",
-      answer:
-        "Target Centurion or Montana stock under R1.2 million, save for transfer duty and legal fees beyond deposit, and use Affordability, Bond, and Transfer Duty calculators before offer.",
+        "Target stock within your pre-approval limit, save for transfer duty and legal fees beyond the deposit, and read our first-time home buyer and affordability guides before offer.",
     },
   ],
 };
