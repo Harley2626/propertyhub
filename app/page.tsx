@@ -4,8 +4,8 @@ import { FeaturedCalculators } from "@/components/home/FeaturedCalculators";
 import { LatestGuides } from "@/components/home/LatestGuides";
 import { WhyPropertyPilot } from "@/components/home/WhyPropertyPilot";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { toolCategories } from "@/lib/data/tools";
-import { siteConfig } from "@/lib/metadata";
+import { getBrowseCategories } from "@/lib/data/homepage";
+import { absoluteUrl, siteConfig } from "@/lib/metadata";
 import { buildSiteSchema } from "@/lib/seo/site-schema";
 import type { Metadata } from "next";
 
@@ -14,6 +14,9 @@ export const metadata: Metadata = {
     absolute: siteConfig.title,
   },
   description: siteConfig.description,
+  alternates: {
+    canonical: siteConfig.url,
+  },
   openGraph: {
     title: siteConfig.ogTitle,
     description: siteConfig.ogDescription,
@@ -26,6 +29,8 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
+  const browseCategories = getBrowseCategories();
+
   return (
     <>
       <JsonLd data={buildSiteSchema()} />
@@ -41,10 +46,10 @@ export default function HomePage() {
 
           <div className="border-t border-border/60 pt-4">
             <p className="mb-16 text-center text-xs font-semibold uppercase tracking-[0.2em] text-muted">
-              All calculators
+              More calculators
             </p>
             <div className="space-y-24 sm:space-y-28">
-              {toolCategories.map((category) => (
+              {browseCategories.map((category) => (
                 <CategorySection key={category.id} category={category} />
               ))}
             </div>

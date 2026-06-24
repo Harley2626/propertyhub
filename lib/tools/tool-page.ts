@@ -1,9 +1,9 @@
 import { getToolBySlug } from "@/lib/data/tools";
-import { siteConfig } from "@/lib/metadata";
+import { absoluteUrl, siteConfig } from "@/lib/metadata";
 import type { Metadata } from "next";
 
 export function buildToolPageUrl(slug: string): string {
-  return `${siteConfig.url}/tools/${slug}`;
+  return absoluteUrl(`/tools/${slug}`);
 }
 
 export function buildToolMetadata(slug: string): Metadata {

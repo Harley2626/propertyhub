@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "eslint",
     "test": "node --import tsx --test lib/**/*.test.ts",
-    "test:validation": "node --import tsx --test lib/calculators/validation/suite.test.ts"
+    "test:validation": "node --import tsx --test lib/calculators/validation/suite.test.ts",
+    "generate:favicons": "node scripts/generate-favicons.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.21.0",
@@ -24,8 +25,10 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
+    "sharp": "^0.35.2",
     "tailwindcss": "^4",
-    "typescript": "^5",
-    "tsx": "^4.22.4"
+    "to-ico": "^1.1.5",
+    "tsx": "^4.22.4",
+    "typescript": "^5"
   }
 }

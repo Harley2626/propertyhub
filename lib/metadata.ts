@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://thepropertypilot.co.za";
+/** Production domain — used as fallback when NEXT_PUBLIC_SITE_URL is unset. */
+export const PRODUCTION_SITE_URL = "https://thepropertypilot.co.za";
+
+function resolveSiteUrl(): string {
+  const raw = process.env.NEXT_PUBLIC_SITE_URL ?? PRODUCTION_SITE_URL;
+  return raw.replace(/\/+$/, "");
+}
 
 export const siteConfig = {
   name: "PropertyPilot",
@@ -11,7 +16,7 @@ export const siteConfig = {
     "Free property and finance calculators, guides, and tools to help South Africans make smarter property decisions.",
   ogTitle: "PropertyPilot",
   ogDescription: "Property & Finance Tools for South Africans",
-  url: siteUrl,
+  url: resolveSiteUrl(),
   locale: "en_ZA",
   keywords: [
     "PropertyPilot",
@@ -39,10 +44,19 @@ export const defaultMetadata: Metadata = {
   authors: [{ name: siteConfig.name }],
   creator: siteConfig.name,
   applicationName: siteConfig.name,
+  alternates: {
+    canonical: siteConfig.url,
+  },
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico", sizes: "any", type: "image/x-icon" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
     shortcut: "/favicon.ico",
-    apple: "/favicon.ico",
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
   },
   openGraph: {
     type: "website",
@@ -62,3 +76,9 @@ export const defaultMetadata: Metadata = {
     follow: true,
   },
 };
+
+/** Build an absolute URL on the production domain. */
+export function absoluteUrl(path = ""): string {
+  const normalizedPath = path.startsWith("/") ? path : path ? `/${path}` : "";
+  return `${siteConfig.url}${normalizedPath}`;
+}

@@ -1,9 +1,9 @@
-import { siteConfig } from "@/lib/metadata";
+import { absoluteUrl, siteConfig } from "@/lib/metadata";
 import { toolCategories } from "@/lib/data/tools";
 
 export function buildSiteSchema() {
   const toolUrls = toolCategories.flatMap((category) =>
-    category.tools.map((tool) => `${siteConfig.url}/tools/${tool.slug}`),
+    category.tools.map((tool) => absoluteUrl(`/tools/${tool.slug}`)),
   );
 
   return [

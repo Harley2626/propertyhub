@@ -1,4 +1,4 @@
-import { getAllTools, type Tool } from "./tools";
+import { getAllTools, toolCategories, type Tool, type ToolCategory } from "./tools";
 
 export const FEATURED_CALCULATOR_SLUGS = [
   "transfer-duty-calculator",
@@ -6,6 +6,14 @@ export const FEATURED_CALCULATOR_SLUGS = [
   "affordability-calculator",
   "income-tax-calculator",
 ] as const;
+
+export type FeaturedCalculatorSlug = (typeof FEATURED_CALCULATOR_SLUGS)[number];
+
+const featuredSlugSet = new Set<string>(FEATURED_CALCULATOR_SLUGS);
+
+export function isFeaturedCalculator(slug: string): slug is FeaturedCalculatorSlug {
+  return featuredSlugSet.has(slug);
+}
 
 export const whyPropertyPilot = [
   {
@@ -39,4 +47,14 @@ export function getFeaturedTools(): Tool[] {
   return FEATURED_CALCULATOR_SLUGS.map((slug) =>
     all.find((tool) => tool.slug === slug),
   ).filter((tool): tool is Tool => tool !== undefined);
+}
+
+/** Category listings with featured calculators removed (they appear above). */
+export function getBrowseCategories(): ToolCategory[] {
+  return toolCategories
+    .map((category) => ({
+      ...category,
+      tools: category.tools.filter((tool) => !isFeaturedCalculator(tool.slug)),
+    }))
+    .filter((category) => category.tools.length > 0);
 }

@@ -1,11 +1,26 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { guides } from "@/lib/data/guides";
+import { absoluteUrl, siteConfig } from "@/lib/metadata";
 
 export const metadata: Metadata = {
   title: "Guides",
   description:
     "Property and finance guides for South Africans. Learn about bonds, transfer duty, buying your first home, and more.",
+  alternates: {
+    canonical: absoluteUrl("/guides"),
+  },
+  openGraph: {
+    title: `Guides | ${siteConfig.name}`,
+    description:
+      "Property and finance guides for South Africans. Learn about bonds, transfer duty, buying your first home, and more.",
+    url: absoluteUrl("/guides"),
+  },
+  twitter: {
+    title: `Guides | ${siteConfig.name}`,
+    description:
+      "Property and finance guides for South Africans. Learn about bonds, transfer duty, buying your first home, and more.",
+  },
 };
 
 const tagStyles = {
