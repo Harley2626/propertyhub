@@ -77,9 +77,11 @@ export function GuidePageLayout({ guide }: GuidePageLayoutProps) {
                 <Button href={guide.relatedTool.href}>
                   Use {guide.relatedTool.label}
                 </Button>
-                <Button href="/tools/affordability-calculator" variant="secondary">
-                  Affordability Calculator
-                </Button>
+                {guide.additionalTools?.map((tool) => (
+                  <Button key={tool.href} href={tool.href} variant="secondary">
+                    {tool.label}
+                  </Button>
+                ))}
               </div>
             </div>
           ) : null}

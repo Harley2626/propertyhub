@@ -16,14 +16,10 @@ export function buildGuideMetadata(slug: string): Metadata {
   return {
     title: guide.title,
     description: guide.description,
-    keywords: [
-      "bond calculator south africa",
-      "home loan calculator",
-      "bond repayments",
-      "home loan interest rate",
-      "monthly bond instalment",
+    keywords: guide.keywords ?? [
       "propertypilot",
       "south africa property",
+      guide.tag.toLowerCase(),
     ],
     alternates: { canonical: pageUrl },
     openGraph: {
@@ -77,6 +73,9 @@ export function buildGuideSchema(guide: GuideArticle) {
         "South Africa",
         "bond repayments",
         "interest rates",
+        "affordability",
+        "bond approval",
+        "property deposit",
       ].join(", "),
     },
     {

@@ -24,6 +24,11 @@ export type GuideArticle = {
     href: string;
     label: string;
   };
+  additionalTools?: {
+    href: string;
+    label: string;
+  }[];
+  keywords?: string[];
   sections: GuideSection[];
   faqs: GuideFAQ[];
 };
