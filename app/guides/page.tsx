@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { guides } from "@/lib/data/guides";
+import { getAllGuideSummaries } from "@/lib/data/guides";
 import { absoluteUrl, siteConfig } from "@/lib/metadata";
 
 export const metadata: Metadata = {
@@ -31,6 +31,8 @@ const tagStyles = {
 } as const;
 
 export default function GuidesPage() {
+  const guides = getAllGuideSummaries();
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
       <div className="mx-auto max-w-3xl text-center">
@@ -49,7 +51,7 @@ export default function GuidesPage() {
       <div className="mx-auto mt-14 grid max-w-5xl gap-6 sm:grid-cols-2">
         {guides.map((guide) => (
           <Link
-            key={guide.title}
+            key={guide.slug}
             href={guide.href}
             className="group flex flex-col rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:-translate-y-1 hover:border-accent/25 hover:shadow-xl hover:shadow-accent/5"
           >

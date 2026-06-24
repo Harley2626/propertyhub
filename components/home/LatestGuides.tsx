@@ -1,5 +1,5 @@
 import { SectionHeader } from "@/components/home/SectionHeader";
-import { guides } from "@/lib/data/guides";
+import { getAllGuideSummaries } from "@/lib/data/guides";
 import Link from "next/link";
 
 const tagStyles = {
@@ -10,7 +10,7 @@ const tagStyles = {
 } as const;
 
 export function LatestGuides() {
-  const latest = guides.slice(0, 3);
+  const latest = getAllGuideSummaries().slice(0, 3);
 
   return (
     <section aria-labelledby="latest-guides-heading" className="scroll-mt-24">
@@ -32,7 +32,7 @@ export function LatestGuides() {
       <div className="grid gap-6 md:grid-cols-3">
         {latest.map((guide, index) => (
           <Link
-            key={guide.title}
+            key={guide.slug}
             href={guide.href}
             className="group animate-fade-in-up flex flex-col rounded-2xl border border-border bg-card p-7 transition-all duration-300 hover:-translate-y-1 hover:border-accent/25 hover:shadow-xl hover:shadow-accent/5"
             style={{ animationDelay: `${index * 100}ms` }}
