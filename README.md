@@ -27,6 +27,36 @@ For production, set:
 NEXT_PUBLIC_SITE_URL=https://thepropertypilot.co.za
 ```
 
+Copy `.env.example` to `.env.production` (or configure env vars on your host) before deploying.
+
+### Google Analytics 4
+
+1. Create a GA4 property at [Google Analytics](https://analytics.google.com) for `thepropertypilot.co.za`.
+2. Copy the **Measurement ID** (format `G-XXXXXXXXXX`).
+3. Add it to your production environment:
+
+   ```bash
+   NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+   ```
+
+   **Where it lives:** `.env.production` locally, or your hosting provider's environment variables (Vercel, Netlify, etc.). See `.env.example` for the exact variable name.
+
+4. Deploy. Analytics scripts load **only in production** when this variable is set — not during `npm run dev`.
+
+Implementation: `components/analytics/GoogleAnalytics.tsx` (gtag.js) and `components/analytics/AnalyticsPageView.tsx` (App Router page views).
+
+### Google Search Console
+
+1. Add property: `https://thepropertypilot.co.za` (URL prefix or domain property).
+2. **Verify ownership** — HTML tag method:
+   - Copy the verification code from Search Console.
+   - Set `GOOGLE_SITE_VERIFICATION=<code>` in production env (see `.env.example`).
+   - Redeploy; confirm the meta tag appears in page source.
+3. **Submit sitemap:** `https://thepropertypilot.co.za/sitemap.xml`
+4. **Confirm robots.txt:** `https://thepropertypilot.co.za/robots.txt` — allows all crawlers and references the sitemap.
+
+The site ships with `index, follow` robots metadata, absolute canonical URLs on all public pages, and JSON-LD structured data on homepage, tools, guides, and area pages.
+
 ### Scripts
 
 | Command | Description |

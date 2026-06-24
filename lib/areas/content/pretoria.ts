@@ -1,6 +1,7 @@
-import type { AreaGuide } from "../types";
+import type { CityAreaGuide } from "../types";
 
-export const pretoriaArea: AreaGuide = {
+export const pretoriaArea: CityAreaGuide = {
+  kind: "city",
   slug: "pretoria",
   title: "Buying Property in Pretoria",
   description:

@@ -1,6 +1,7 @@
-import type { AreaGuide } from "../types";
+import type { CityAreaGuide } from "../types";
 
-export const capeTownArea: AreaGuide = {
+export const capeTownArea: CityAreaGuide = {
+  kind: "city",
   slug: "cape-town",
   title: "Buying Property in Cape Town",
   description:
@@ -39,16 +40,19 @@ export const capeTownArea: AreaGuide = {
   popularSuburbs: [
     {
       name: "Sea Point",
+      guideSlug: "sea-point",
       description:
         "Atlantic Seaboard apartment living with strong walkability and rental demand. Sectional title dominates; check parking, levies, and body corporate records.",
     },
     {
-      name: "Claremont / Newlands",
+      name: "Somerset West / Helderberg",
+      guideSlug: "somerset-west",
       description:
-        "Established southern suburbs near UCT and major schools. Mix of apartments and family homes with good amenities and Metrorail access.",
+        "Eastern wine-route corridor with estates, freestanding homes, and Helderberg schools. Popular with families and semigrants seeking space outside the Atlantic Seaboard.",
     },
     {
       name: "Durbanville",
+      guideSlug: "durbanville",
       description:
         "Northern suburbs node popular with families seeking more space than the Atlantic Seaboard. Good schools and wine-route lifestyle.",
     },
@@ -64,6 +68,7 @@ export const capeTownArea: AreaGuide = {
     },
     {
       name: "Blouberg / Big Bay",
+      guideSlug: "blouberg",
       description:
         "Coastal lifestyle north of the city with beach access and more accessible pricing than central Atlantic Seaboard nodes.",
     },

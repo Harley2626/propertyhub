@@ -1,57 +1,124 @@
 import { absoluteUrl, siteConfig } from "@/lib/metadata";
 import type { Metadata } from "next";
-import { getAreaBySlug } from "./registry";
-import type { AreaGuide } from "./types";
+import { getCityBySlug, getLocationBySlug } from "./registry";
+import { isSuburbGuide, type LocationGuide } from "./types";
 
 export function buildAreaPageUrl(slug: string): string {
   return absoluteUrl(`/areas/${slug}`);
 }
 
 export function buildAreaMetadata(slug: string): Metadata {
-  const area = getAreaBySlug(slug);
-  if (!area) return { title: "Area Not Found" };
+  const guide = getLocationBySlug(slug);
+  if (!guide) return { title: "Area Not Found" };
 
   const pageUrl = buildAreaPageUrl(slug);
+  const defaultKeywords = isSuburbGuide(guide)
+    ? [
+        `${guide.suburb.toLowerCase()} property`,
+        `buying property ${guide.suburb.toLowerCase()}`,
+        `${guide.city.toLowerCase()} suburbs`,
+        "property market south africa",
+      ]
+    : [
+        `${guide.city.toLowerCase()} property`,
+        `${guide.city.toLowerCase()} property prices`,
+        "property market south africa",
+      ];
 
   return {
-    title: area.title,
-    description: area.description,
-    keywords: area.keywords ?? [
-      `${area.city.toLowerCase()} property`,
-      `${area.city.toLowerCase()} property prices`,
-      "property market south africa",
-      "propertypilot",
-    ],
+    title: guide.title,
+    description: guide.description,
+    keywords: guide.keywords ?? defaultKeywords,
     alternates: { canonical: pageUrl },
     openGraph: {
-      title: area.title,
-      description: area.description,
+      title: guide.title,
+      description: guide.description,
       url: pageUrl,
       type: "article",
       siteName: siteConfig.name,
-      publishedTime: area.publishedDate,
-      modifiedTime: area.updatedDate,
+      publishedTime: guide.publishedDate,
+      modifiedTime: guide.updatedDate,
       locale: siteConfig.locale,
     },
     twitter: {
       card: "summary_large_image",
-      title: area.title,
-      description: area.description,
+      title: guide.title,
+      description: guide.description,
     },
   };
 }
 
-export function buildAreaSchema(area: AreaGuide) {
-  const pageUrl = buildAreaPageUrl(area.slug);
+export function buildAreaSchema(guide: LocationGuide) {
+  const pageUrl = buildAreaPageUrl(guide.slug);
+
+  const about = isSuburbGuide(guide)
+    ? {
+        "@type": "Place",
+        name: guide.suburb,
+        containedInPlace: {
+          "@type": "City",
+          name: guide.city,
+          containedInPlace: {
+            "@type": "AdministrativeArea",
+            name: guide.province,
+          },
+        },
+      }
+    : {
+        "@type": "City",
+        name: guide.city,
+        containedInPlace: {
+          "@type": "AdministrativeArea",
+          name: guide.province,
+        },
+      };
+
+  const breadcrumbItems: Record<string, unknown>[] = [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: siteConfig.url,
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Areas",
+      item: absoluteUrl("/areas"),
+    },
+  ];
+
+  if (isSuburbGuide(guide)) {
+    const parentCity = getCityBySlug(guide.parentAreaSlug);
+    breadcrumbItems.push({
+      "@type": "ListItem",
+      position: 3,
+      name: parentCity?.title ?? `${guide.city} property guide`,
+      item: absoluteUrl(`/areas/${guide.parentAreaSlug}`),
+    });
+    breadcrumbItems.push({
+      "@type": "ListItem",
+      position: 4,
+      name: guide.title,
+      item: pageUrl,
+    });
+  } else {
+    breadcrumbItems.push({
+      "@type": "ListItem",
+      position: 3,
+      name: guide.title,
+      item: pageUrl,
+    });
+  }
 
   const schema: Record<string, unknown>[] = [
     {
       "@context": "https://schema.org",
       "@type": "Article",
-      headline: area.title,
-      description: area.description,
-      datePublished: area.publishedDate,
-      dateModified: area.lastReviewed,
+      headline: guide.title,
+      description: guide.description,
+      datePublished: guide.publishedDate,
+      dateModified: guide.lastReviewed,
       inLanguage: "en-ZA",
       mainEntityOfPage: {
         "@type": "WebPage",
@@ -67,53 +134,29 @@ export function buildAreaSchema(area: AreaGuide) {
         name: siteConfig.name,
         url: siteConfig.url,
       },
-      articleSection: "Property Areas",
-      keywords: (area.keywords ?? [
-        area.city,
-        area.province,
+      articleSection: isSuburbGuide(guide)
+        ? "Suburb Property Guides"
+        : "Property Areas",
+      keywords: (guide.keywords ?? [
+        isSuburbGuide(guide) ? guide.suburb : guide.city,
+        guide.province,
         "property market",
         "South Africa",
       ]).join(", "),
-      about: {
-        "@type": "City",
-        name: area.city,
-        containedInPlace: {
-          "@type": "AdministrativeArea",
-          name: area.province,
-        },
-      },
+      about,
     },
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
-      itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: siteConfig.url,
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Areas",
-          item: absoluteUrl("/areas"),
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: area.title,
-          item: pageUrl,
-        },
-      ],
+      itemListElement: breadcrumbItems,
     },
   ];
 
-  if (area.faqs.length > 0) {
+  if (guide.faqs.length > 0) {
     schema.push({
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      mainEntity: area.faqs.map((faq) => ({
+      mainEntity: guide.faqs.map((faq) => ({
         "@type": "Question",
         name: faq.question,
         acceptedAnswer: {

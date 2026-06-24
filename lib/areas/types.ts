@@ -9,9 +9,13 @@ export type PropertyPriceRange = {
   note?: string;
 };
 
-export type PopularSuburb = {
+export type Neighbourhood = {
   name: string;
   description: string;
+};
+
+export type PopularSuburb = Neighbourhood & {
+  guideSlug?: string;
 };
 
 export type ProsAndCons = {
@@ -30,7 +34,15 @@ export type RelatedGuideLink = {
   label: string;
 };
 
-export type AreaGuide = {
+export type ResourceLink = {
+  href: string;
+  label: string;
+  description?: string;
+};
+
+/** City-level metro guide (e.g. Cape Town, Johannesburg). */
+export type CityAreaGuide = {
+  kind: "city";
   slug: string;
   title: string;
   description: string;
@@ -43,20 +55,65 @@ export type AreaGuide = {
   averagePrices: PropertyPriceRange[];
   popularSuburbs: PopularSuburb[];
   prosAndCons: ProsAndCons;
-  /** Local market structure and buyer context — not investment tactics. */
   marketOverview: string[];
-  /** Investor-focused strategies, property types, and risks. */
   propertyInvestment: string[];
-  /** Yield mechanics, costs, and tenant matching for this metro. */
   rentalYield: string[];
   calculatorLinks?: CalculatorLink[];
   relatedGuides?: RelatedGuideLink[];
   faqs: AreaFAQ[];
 };
 
-export type AreaSummary = Pick<
-  AreaGuide,
-  "slug" | "title" | "description" | "city" | "province"
-> & {
+/** Suburb-level premium guide (e.g. Sea Point, Durbanville). */
+export type SuburbGuide = {
+  kind: "suburb";
+  slug: string;
+  title: string;
+  description: string;
+  suburb: string;
+  city: string;
+  province: string;
+  parentAreaSlug: string;
+  publishedDate: string;
+  updatedDate: string;
+  lastReviewed: string;
+  keywords?: string[];
+  indicativePrices?: PropertyPriceRange[];
+  overview: string[];
+  whyBuyHere: string[];
+  neighbourhoods: Neighbourhood[];
+  propertyTypes: string[];
+  lifestyleAmenities: string[];
+  investmentPotential: string[];
+  rentalMarket: string[];
+  prosAndCons: ProsAndCons;
+  bestSuitedFor: string[];
+  relatedResources?: ResourceLink[];
+  faqs: AreaFAQ[];
+};
+
+export type LocationGuide = CityAreaGuide | SuburbGuide;
+
+export type LocationSummary = {
+  slug: string;
+  title: string;
+  description: string;
+  city: string;
+  province: string;
+  kind: "city" | "suburb";
+  suburb?: string;
   href: string;
 };
+
+/** @deprecated Use CityAreaGuide */
+export type AreaGuide = CityAreaGuide;
+
+/** @deprecated Use LocationSummary */
+export type AreaSummary = LocationSummary;
+
+export function isSuburbGuide(guide: LocationGuide): guide is SuburbGuide {
+  return guide.kind === "suburb";
+}
+
+export function isCityGuide(guide: LocationGuide): guide is CityAreaGuide {
+  return guide.kind === "city";
+}

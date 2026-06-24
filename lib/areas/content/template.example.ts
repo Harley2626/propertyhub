@@ -6,6 +6,7 @@ import type { AreaGuide } from "../types";
  * Register the export in lib/areas/registry.ts.
  */
 export const exampleAreaTemplate: AreaGuide = {
+  kind: "city",
   slug: "city-slug",
   title: "Buying Property in City Name",
   description: "Short meta description for SEO.",

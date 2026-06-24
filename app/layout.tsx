@@ -1,4 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
+import { AnalyticsPageView, GoogleAnalytics } from "@/components/analytics";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
@@ -43,6 +44,8 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
+        <GoogleAnalytics />
+        <AnalyticsPageView />
         <ThemeProvider>
           <Header />
           <main className="flex-1">{children}</main>

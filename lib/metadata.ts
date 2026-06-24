@@ -8,6 +8,11 @@ function resolveSiteUrl(): string {
   return raw.replace(/\/+$/, "");
 }
 
+function resolveGoogleSiteVerification(): string | undefined {
+  const token = process.env.GOOGLE_SITE_VERIFICATION?.trim();
+  return token || undefined;
+}
+
 export const siteConfig = {
   name: "PropertyPilot",
   tagline: "Property & Finance Tools for South Africans",
@@ -75,6 +80,9 @@ export const defaultMetadata: Metadata = {
     index: true,
     follow: true,
   },
+  ...(resolveGoogleSiteVerification()
+    ? { verification: { google: resolveGoogleSiteVerification() } }
+    : {}),
 };
 
 /** Build an absolute URL on the production domain. */

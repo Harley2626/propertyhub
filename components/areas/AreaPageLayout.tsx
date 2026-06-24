@@ -5,11 +5,11 @@ import {
   defaultAreaCalculatorLinks,
   defaultRelatedGuides,
 } from "@/lib/areas/defaults";
-import type { AreaGuide } from "@/lib/areas/types";
+import type { CityAreaGuide } from "@/lib/areas/types";
 import Link from "next/link";
 
 type AreaPageLayoutProps = {
-  area: AreaGuide;
+  area: CityAreaGuide;
 };
 
 function ContentSection({
@@ -109,10 +109,29 @@ export function AreaPageLayout({ area }: AreaPageLayoutProps) {
                 key={suburb.name}
                 className="rounded-2xl border border-border bg-card p-6"
               >
-                <h3 className="font-semibold text-foreground">{suburb.name}</h3>
+                <h3 className="font-semibold text-foreground">
+                  {suburb.guideSlug ? (
+                    <Link
+                      href={`/areas/${suburb.guideSlug}`}
+                      className="text-accent hover:text-accent-hover"
+                    >
+                      {suburb.name}
+                    </Link>
+                  ) : (
+                    suburb.name
+                  )}
+                </h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted">
                   {suburb.description}
                 </p>
+                {suburb.guideSlug ? (
+                  <Link
+                    href={`/areas/${suburb.guideSlug}`}
+                    className="mt-3 inline-block text-sm font-medium text-accent hover:text-accent-hover"
+                  >
+                    Read suburb guide &rarr;
+                  </Link>
+                ) : null}
               </div>
             ))}
           </div>

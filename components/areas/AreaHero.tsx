@@ -7,6 +7,8 @@ type AreaHeroProps = {
   city: string;
   province: string;
   lastReviewed: string;
+  suburb?: string;
+  parentAreaSlug?: string;
 };
 
 export function AreaHero({
@@ -15,6 +17,8 @@ export function AreaHero({
   city,
   province,
   lastReviewed,
+  suburb,
+  parentAreaSlug,
 }: AreaHeroProps) {
   const formattedDate = new Intl.DateTimeFormat("en-ZA", {
     day: "numeric",
@@ -37,14 +41,33 @@ export function AreaHero({
         </Link>
 
         <div className="mt-6 flex flex-wrap items-center gap-3">
-          <span className="inline-flex rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700 dark:bg-blue-950/50 dark:text-blue-300">
-            {city}
-          </span>
+          {suburb ? (
+            <span className="inline-flex rounded-full bg-violet-50 px-3 py-1 text-xs font-semibold text-violet-700 dark:bg-violet-950/50 dark:text-violet-300">
+              Suburb guide
+            </span>
+          ) : (
+            <span className="inline-flex rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700 dark:bg-blue-950/50 dark:text-blue-300">
+              City guide
+            </span>
+          )}
           <span className="inline-flex rounded-full bg-muted-bg px-3 py-1 text-xs font-semibold text-muted">
-            {province}
+            {suburb ? `${suburb}, ${city}` : city} · {province}
           </span>
           <span className="text-sm text-muted">Last reviewed: {formattedDate}</span>
         </div>
+
+        {suburb && parentAreaSlug ? (
+          <p className="mt-4 text-sm text-muted">
+            Part of the{" "}
+            <Link
+              href={`/areas/${parentAreaSlug}`}
+              className="font-medium text-accent hover:text-accent-hover"
+            >
+              {city} property market
+            </Link>
+            .
+          </p>
+        ) : null}
 
         <h1 className="mt-4 max-w-4xl text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
           {title}

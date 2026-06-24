@@ -1,8 +1,10 @@
 import { AreaHero } from "@/components/areas/AreaHero";
 import { AreaPageLayout } from "@/components/areas/AreaPageLayout";
+import { SuburbPageLayout } from "@/components/areas/SuburbPageLayout";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { buildAreaMetadata, buildAreaSchema } from "@/lib/areas/area-page";
-import { areaGuides, getAreaBySlug } from "@/lib/areas/registry";
+import { getLocationBySlug, locationGuides } from "@/lib/areas/registry";
+import { isSuburbGuide } from "@/lib/areas/types";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -11,7 +13,7 @@ type Props = {
 };
 
 export async function generateStaticParams() {
-  return areaGuides.map((area) => ({ slug: area.slug }));
+  return locationGuides.map((guide) => ({ slug: guide.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -21,20 +23,28 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function AreaPage({ params }: Props) {
   const { slug } = await params;
-  const area = getAreaBySlug(slug);
-  if (!area) notFound();
+  const guide = getLocationBySlug(slug);
+  if (!guide) notFound();
 
   return (
     <>
-      <JsonLd data={buildAreaSchema(area)} />
+      <JsonLd data={buildAreaSchema(guide)} />
       <AreaHero
-        title={area.title}
-        description={area.description}
-        city={area.city}
-        province={area.province}
-        lastReviewed={area.lastReviewed}
+        title={guide.title}
+        description={guide.description}
+        city={guide.city}
+        province={guide.province}
+        lastReviewed={guide.lastReviewed}
+        suburb={isSuburbGuide(guide) ? guide.suburb : undefined}
+        parentAreaSlug={
+          isSuburbGuide(guide) ? guide.parentAreaSlug : undefined
+        }
       />
-      <AreaPageLayout area={area} />
+      {isSuburbGuide(guide) ? (
+        <SuburbPageLayout guide={guide} />
+      ) : (
+        <AreaPageLayout area={guide} />
+      )}
     </>
   );
 }

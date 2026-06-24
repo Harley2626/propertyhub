@@ -1,8 +1,20 @@
-import { getAreaSummaries } from "@/lib/areas/registry";
-import type { AreaSummary } from "@/lib/areas/types";
+import {
+  getCitySummaries,
+  getLocationSummaries,
+  getSuburbSummaries,
+} from "@/lib/areas/registry";
+import type { LocationSummary } from "@/lib/areas/types";
 
-export function getAllAreaSummaries(): AreaSummary[] {
-  return getAreaSummaries();
+export function getAllLocationSummaries(): LocationSummary[] {
+  return getLocationSummaries();
 }
 
-export type { AreaSummary as Area };
+export function getAllAreaSummaries(): LocationSummary[] {
+  return getCitySummaries();
+}
+
+export function getAllSuburbSummaries(): LocationSummary[] {
+  return getSuburbSummaries();
+}
+
+export type { LocationSummary as Area, LocationSummary };

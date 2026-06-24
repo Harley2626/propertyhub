@@ -1,4 +1,4 @@
-import type { CalculatorLink, RelatedGuideLink } from "./types";
+import type { CalculatorLink, RelatedGuideLink, ResourceLink } from "./types";
 
 export const AREA_PRICE_DISCLAIMER =
   "Property prices and rental yields are indicative only and should be verified using current listings and professional advice.";
@@ -35,7 +35,7 @@ export const defaultAreaCalculatorLinks: CalculatorLink[] = [
   },
 ];
 
-/** Standard related guides linked from every area page. */
+/** Standard related guides linked from city area pages. */
 export const defaultRelatedGuides: RelatedGuideLink[] = [
   {
     href: "/guides/bond-calculator-south-africa-2025",
@@ -56,5 +56,32 @@ export const defaultRelatedGuides: RelatedGuideLink[] = [
   {
     href: "/guides/rent-vs-buy-south-africa-2025",
     label: "Rent vs Buy in South Africa (2025 Guide)",
+  },
+];
+
+/** Calculators and guides linked from suburb guides. */
+export const defaultSuburbResources: ResourceLink[] = [
+  {
+    href: "/tools/bond-calculator",
+    label: "Bond Calculator",
+    description: "Estimate monthly home loan repayments.",
+  },
+  {
+    href: "/tools/affordability-calculator",
+    label: "Affordability Calculator",
+    description: "Estimate how much you may afford based on income.",
+  },
+  {
+    href: "/tools/transfer-duty-calculator",
+    label: "Transfer Duty Calculator",
+    description: "Estimate SARS transfer duty on a purchase price.",
+  },
+  {
+    href: "/guides/rent-vs-buy-south-africa-2025",
+    label: "Rent vs Buy in South Africa (2025 Guide)",
+  },
+  {
+    href: "/guides/first-time-home-buyer-guide-south-africa",
+    label: "First-Time Home Buyer Guide South Africa",
   },
 ];

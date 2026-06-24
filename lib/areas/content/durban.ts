@@ -1,6 +1,7 @@
-import type { AreaGuide } from "../types";
+import type { CityAreaGuide } from "../types";
 
-export const durbanArea: AreaGuide = {
+export const durbanArea: CityAreaGuide = {
+  kind: "city",
   slug: "durban",
   title: "Buying Property in Durban",
   description:
