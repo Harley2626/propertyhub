@@ -2,11 +2,19 @@ import type { MetadataRoute } from "next";
 import { absoluteUrl, siteConfig } from "@/lib/metadata";
 import { toolCategories } from "@/lib/data/tools";
 import { guideArticles } from "@/lib/guides/registry";
+import { areaGuides } from "@/lib/areas/registry";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const guidePages = guideArticles.map((guide) => ({
     url: absoluteUrl(`/guides/${guide.slug}`),
     lastModified: new Date(guide.updatedDate),
+    changeFrequency: "monthly" as const,
+    priority: 0.85,
+  }));
+
+  const areaPages = areaGuides.map((area) => ({
+    url: absoluteUrl(`/areas/${area.slug}`),
+    lastModified: new Date(area.updatedDate),
     changeFrequency: "monthly" as const,
     priority: 0.85,
   }));
@@ -33,7 +41,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.9,
     },
+    {
+      url: absoluteUrl("/areas"),
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
     ...guidePages,
+    ...areaPages,
     ...toolPages,
   ];
 }
