@@ -1,33 +1,57 @@
 import Link from "next/link";
-import type { GuideTag } from "@/lib/guides/types";
+import type { ContentPillarSlug } from "@/lib/knowledge/types";
+import { getPillarName, getSubtopicLabel } from "@/lib/knowledge/pillars";
+import { getPillarHubPath } from "@/lib/knowledge/pillars";
 
-const tagStyles: Record<GuideTag, string> = {
-  Property: "bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-300",
-  Finance:
+const pillarStyles: Record<ContentPillarSlug, string> = {
+  "buying-property":
+    "bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-300",
+  "property-finance":
     "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300",
-  Tax: "bg-violet-50 text-violet-700 dark:bg-violet-950/50 dark:text-violet-300",
+  "property-investment":
+    "bg-violet-50 text-violet-700 dark:bg-violet-950/50 dark:text-violet-300",
+  "areas-and-suburbs":
+    "bg-sky-50 text-sky-700 dark:bg-sky-950/50 dark:text-sky-300",
+  "property-data":
+    "bg-amber-50 text-amber-800 dark:bg-amber-950/50 dark:text-amber-300",
+  calculators:
+    "bg-indigo-50 text-indigo-700 dark:bg-indigo-950/50 dark:text-indigo-300",
 };
 
 type GuideHeroProps = {
   title: string;
   description: string;
-  tag: GuideTag;
-  readTime: string;
+  pillar: ContentPillarSlug;
+  subtopic?: string;
+  estimatedReadingTime: string;
   updatedDate: string;
+  lastReviewed: string;
+  reviewedBy?: string;
 };
 
 export function GuideHero({
   title,
   description,
-  tag,
-  readTime,
+  pillar,
+  subtopic,
+  estimatedReadingTime,
   updatedDate,
+  lastReviewed,
+  reviewedBy,
 }: GuideHeroProps) {
-  const formattedDate = new Intl.DateTimeFormat("en-ZA", {
+  const formattedUpdated = new Intl.DateTimeFormat("en-ZA", {
     day: "numeric",
     month: "long",
     year: "numeric",
   }).format(new Date(updatedDate));
+
+  const formattedReviewed = new Intl.DateTimeFormat("en-ZA", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(new Date(lastReviewed));
+
+  const subtopicLabel = getSubtopicLabel(pillar, subtopic);
 
   return (
     <section className="relative overflow-hidden border-b border-border bg-muted-bg">
@@ -37,20 +61,28 @@ export function GuideHero({
 
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
         <Link
-          href="/guides"
+          href={getPillarHubPath(pillar)}
           className="inline-flex items-center gap-1 text-sm font-medium text-muted transition-colors hover:text-accent"
         >
-          &larr; Back to guides
+          &larr; {getPillarName(pillar)}
         </Link>
 
         <div className="mt-6 flex flex-wrap items-center gap-3">
-          <span
-            className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${tagStyles[tag]}`}
+          <Link
+            href={getPillarHubPath(pillar)}
+            className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold transition-opacity hover:opacity-90 ${pillarStyles[pillar]}`}
           >
-            {tag}
+            {getPillarName(pillar)}
+          </Link>
+          {subtopicLabel ? (
+            <span className="inline-flex rounded-full bg-muted-bg px-3 py-1 text-xs font-semibold text-muted">
+              {subtopicLabel}
+            </span>
+          ) : null}
+          <span className="text-sm text-muted">{estimatedReadingTime}</span>
+          <span className="text-sm text-muted">
+            Last reviewed {formattedReviewed}
           </span>
-          <span className="text-sm text-muted">{readTime}</span>
-          <span className="text-sm text-muted">Updated {formattedDate}</span>
         </div>
 
         <h1 className="mt-4 max-w-4xl text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
@@ -58,6 +90,10 @@ export function GuideHero({
         </h1>
         <p className="mt-4 max-w-3xl text-lg leading-relaxed text-muted">
           {description}
+        </p>
+        <p className="mt-3 text-sm text-muted">
+          Updated {formattedUpdated}
+          {reviewedBy ? ` · Reviewed by ${reviewedBy}` : null}
         </p>
       </div>
     </section>

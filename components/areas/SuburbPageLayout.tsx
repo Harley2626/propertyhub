@@ -1,4 +1,5 @@
 import { FAQSection } from "@/components/tools/FAQSection";
+import { RelatedContentSection } from "@/components/knowledge/RelatedContentSection";
 import {
   AREA_PRICE_DISCLAIMER,
   defaultSuburbResources,
@@ -274,6 +275,12 @@ export function SuburbPageLayout({ guide }: SuburbPageLayoutProps) {
 
       <div className="mx-auto mt-16 max-w-3xl">
         <FAQSection faqs={guide.faqs} />
+      </div>
+
+      <div className="mx-auto mt-16 max-w-3xl">
+        <RelatedContentSection
+          source={{ kind: "suburb", slug: guide.slug }}
+        />
       </div>
     </article>
   );

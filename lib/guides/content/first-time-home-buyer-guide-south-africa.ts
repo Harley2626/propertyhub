@@ -6,9 +6,20 @@ export const firstTimeHomeBuyerGuide: GuideArticle = {
   description:
     "Step-by-step guide for first-time home buyers in South Africa — pre-approval, deposits, transfer duty, bond registration, and what to expect from offer to keys.",
   tag: "Property",
-  readTime: "15 min read",
+  pillar: "buying-property",
+  subtopic: "first-time-buyers",
+  estimatedReadingTime: "15 min read",
   publishedDate: "2025-06-01",
   updatedDate: "2025-06-24",
+  lastReviewed: "2025-06-24",
+  reviewedBy: "PropertyPilot Editorial",
+  relatedCalculators: [
+    "deposit-calculator",
+    "affordability-calculator",
+    "transfer-duty-calculator",
+    "bond-calculator",
+  ],
+  relatedAreas: ["cape-town", "somerset-west", "durbanville"],
   relatedTool: {
     slug: "deposit-calculator",
     href: "/tools/deposit-calculator",

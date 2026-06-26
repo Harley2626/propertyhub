@@ -1,4 +1,5 @@
 import { absoluteUrl, siteConfig } from "@/lib/metadata";
+import { getPillarHubPath, getPillarName } from "@/lib/knowledge/pillars";
 import type { Metadata } from "next";
 import { getGuideBySlug } from "./registry";
 import type { GuideArticle } from "./types";
@@ -19,7 +20,7 @@ export function buildGuideMetadata(slug: string): Metadata {
     keywords: guide.keywords ?? [
       "propertypilot",
       "south africa property",
-      guide.tag.toLowerCase(),
+      getPillarName(guide.pillar).toLowerCase(),
     ],
     alternates: { canonical: pageUrl },
     openGraph: {
@@ -29,8 +30,9 @@ export function buildGuideMetadata(slug: string): Metadata {
       type: "article",
       siteName: siteConfig.name,
       publishedTime: guide.publishedDate,
-      modifiedTime: guide.updatedDate,
+      modifiedTime: guide.lastReviewed,
       locale: siteConfig.locale,
+      section: getPillarName(guide.pillar),
     },
     twitter: {
       card: "summary_large_image",
@@ -42,6 +44,8 @@ export function buildGuideMetadata(slug: string): Metadata {
 
 export function buildGuideSchema(guide: GuideArticle) {
   const pageUrl = buildGuidePageUrl(guide.slug);
+  const pillarName = getPillarName(guide.pillar);
+  const pillarHubUrl = absoluteUrl(getPillarHubPath(guide.pillar));
 
   return [
     {
@@ -50,7 +54,7 @@ export function buildGuideSchema(guide: GuideArticle) {
       headline: guide.title,
       description: guide.description,
       datePublished: guide.publishedDate,
-      dateModified: guide.updatedDate,
+      dateModified: guide.lastReviewed,
       inLanguage: "en-ZA",
       mainEntityOfPage: {
         "@type": "WebPage",
@@ -58,7 +62,7 @@ export function buildGuideSchema(guide: GuideArticle) {
       },
       author: {
         "@type": "Organization",
-        name: siteConfig.name,
+        name: guide.reviewedBy ?? siteConfig.name,
         url: siteConfig.url,
       },
       publisher: {
@@ -66,17 +70,10 @@ export function buildGuideSchema(guide: GuideArticle) {
         name: siteConfig.name,
         url: siteConfig.url,
       },
-      articleSection: guide.tag,
-      keywords: [
-        "bond calculator",
-        "home loan",
-        "South Africa",
-        "bond repayments",
-        "interest rates",
-        "affordability",
-        "bond approval",
-        "property deposit",
-      ].join(", "),
+      articleSection: pillarName,
+      keywords: (guide.keywords ?? [pillarName, "South Africa", "property"]).join(
+        ", ",
+      ),
     },
     {
       "@context": "https://schema.org",
@@ -97,6 +94,12 @@ export function buildGuideSchema(guide: GuideArticle) {
         {
           "@type": "ListItem",
           position: 3,
+          name: pillarName,
+          item: pillarHubUrl,
+        },
+        {
+          "@type": "ListItem",
+          position: 4,
           name: guide.title,
           item: pageUrl,
         },

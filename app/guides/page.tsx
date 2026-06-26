@@ -1,126 +1,138 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { getAllAreaSummaries } from "@/lib/data/areas";
-import { getAllGuideSummaries } from "@/lib/data/guides";
+import { getPillarSummariesForIndex } from "@/lib/knowledge/catalog";
+import type { ContentPillarSlug } from "@/lib/knowledge/types";
 import { absoluteUrl, siteConfig } from "@/lib/metadata";
 
 export const metadata: Metadata = {
-  title: "Guides",
+  title: "Property Knowledge Hub",
   description:
-    "Property and finance guides for South Africans. Learn about bonds, transfer duty, buying your first home, and more.",
+    "Browse PropertyPilot guides by topic — buying property, finance, investment, areas, data, and free calculators for South Africans.",
   alternates: {
     canonical: absoluteUrl("/guides"),
   },
   openGraph: {
-    title: `Guides | ${siteConfig.name}`,
+    title: `Property Knowledge Hub | ${siteConfig.name}`,
     description:
-      "Property and finance guides for South Africans. Learn about bonds, transfer duty, buying your first home, and more.",
+      "Browse PropertyPilot guides by topic — buying property, finance, investment, areas, data, and free calculators for South Africans.",
     url: absoluteUrl("/guides"),
   },
   twitter: {
-    title: `Guides | ${siteConfig.name}`,
+    title: `Property Knowledge Hub | ${siteConfig.name}`,
     description:
-      "Property and finance guides for South Africans. Learn about bonds, transfer duty, buying your first home, and more.",
+      "Browse PropertyPilot guides by topic — buying property, finance, investment, areas, data, and free calculators for South Africans.",
   },
 };
 
-const tagStyles = {
-  Property: "bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-300",
-  Finance:
+const pillarStyles: Record<ContentPillarSlug, string> = {
+  "buying-property":
+    "bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-300",
+  "property-finance":
     "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300",
-  Tax: "bg-violet-50 text-violet-700 dark:bg-violet-950/50 dark:text-violet-300",
-} as const;
+  "property-investment":
+    "bg-violet-50 text-violet-700 dark:bg-violet-950/50 dark:text-violet-300",
+  "areas-and-suburbs":
+    "bg-sky-50 text-sky-700 dark:bg-sky-950/50 dark:text-sky-300",
+  "property-data":
+    "bg-amber-50 text-amber-800 dark:bg-amber-950/50 dark:text-amber-300",
+  calculators:
+    "bg-indigo-50 text-indigo-700 dark:bg-indigo-950/50 dark:text-indigo-300",
+};
 
 export default function GuidesPage() {
-  const guides = getAllGuideSummaries();
-  const areas = getAllAreaSummaries();
+  const pillars = getPillarSummariesForIndex();
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
       <div className="mx-auto max-w-3xl text-center">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-          Guides
+          Knowledge Hub
         </p>
         <h1 className="mt-4 text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
-          Latest Guides
+          Property guides by topic
         </h1>
         <p className="mt-5 text-lg leading-relaxed text-muted">
-          Expert articles to help you navigate property and personal finance in
-          South Africa.
+          Free guides, calculators, and area insights organised by what you are
+          trying to learn — built for South African buyers and investors.
         </p>
       </div>
 
-      <div className="mx-auto mt-14 grid max-w-5xl gap-6 sm:grid-cols-2">
-        {guides.map((guide) => (
-          <Link
-            key={guide.slug}
-            href={guide.href}
-            className="group flex flex-col rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:-translate-y-1 hover:border-accent/25 hover:shadow-xl hover:shadow-accent/5"
+      <div className="mx-auto mt-16 grid max-w-6xl gap-8">
+        {pillars.map((pillar) => (
+          <section
+            key={pillar.slug}
+            aria-labelledby={`pillar-${pillar.slug}`}
+            className="rounded-2xl border border-border bg-card p-8"
           >
-            <div className="flex items-center justify-between gap-3">
-              <span
-                className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${tagStyles[guide.tag]}`}
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div>
+                <span
+                  className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${pillarStyles[pillar.slug]}`}
+                >
+                  {pillar.guideCount}{" "}
+                  {pillar.guideCount === 1 ? "guide" : "guides"}
+                </span>
+                <h2
+                  id={`pillar-${pillar.slug}`}
+                  className="mt-4 text-2xl font-semibold tracking-tight text-foreground"
+                >
+                  {pillar.name}
+                </h2>
+                <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
+                  {pillar.description}
+                </p>
+              </div>
+              <Link
+                href={pillar.href}
+                className="inline-flex shrink-0 items-center rounded-2xl border border-border bg-muted-bg/50 px-5 py-2.5 text-sm font-semibold text-foreground transition-colors hover:border-accent/30 hover:text-accent"
               >
-                {guide.tag}
-              </span>
-              <span className="text-xs text-muted">{guide.readTime}</span>
+                View all &rarr;
+              </Link>
             </div>
-            <h2 className="mt-4 text-xl font-semibold tracking-tight text-foreground group-hover:text-accent">
-              {guide.title}
-            </h2>
-            <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">
-              {guide.description}
-            </p>
-            <span className="mt-6 text-sm font-medium text-accent">
-              Read guide &rarr;
-            </span>
-          </Link>
+
+            {pillar.featuredGuide ? (
+              <Link
+                href={pillar.featuredGuide.href}
+                className="mt-6 block rounded-xl border border-border/80 bg-muted-bg/40 p-5 transition-colors hover:border-accent/25 hover:bg-muted-bg/70"
+              >
+                <p className="text-xs font-semibold uppercase tracking-wider text-accent">
+                  Featured
+                </p>
+                <h3 className="mt-2 font-semibold text-foreground">
+                  {pillar.featuredGuide.title}
+                </h3>
+                <p className="mt-1 text-sm text-muted line-clamp-2">
+                  {pillar.featuredGuide.description}
+                </p>
+              </Link>
+            ) : null}
+
+            <div className="mt-6 flex flex-wrap gap-4 text-sm text-muted">
+              <span>{pillar.calculatorCount} calculators</span>
+              <span>{pillar.areaCount} area guides</span>
+              {pillar.latestGuide ? (
+                <span>
+                  Latest update:{" "}
+                  {new Intl.DateTimeFormat("en-ZA", {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                  }).format(new Date(pillar.latestGuide.updatedDate))}
+                </span>
+              ) : null}
+            </div>
+          </section>
         ))}
       </div>
 
-      <div className="mx-auto mt-24 max-w-3xl text-center">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-          Areas
-        </p>
-        <h2 className="mt-4 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-          Property guides by city
-        </h2>
-        <p className="mt-5 text-lg leading-relaxed text-muted">
-          Suburb insights, price ranges, and investment analysis for South
-          Africa&apos;s major metros.
-        </p>
-      </div>
-
-      <div className="mx-auto mt-14 grid max-w-5xl gap-6 sm:grid-cols-2">
-        {areas.map((area) => (
-          <Link
-            key={area.slug}
-            href={area.href}
-            className="group flex flex-col rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:-translate-y-1 hover:border-accent/25 hover:shadow-xl hover:shadow-accent/5"
-          >
-            <div className="flex items-center justify-between gap-3">
-              <span className="inline-flex rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700 dark:bg-blue-950/50 dark:text-blue-300">
-                {area.city}
-              </span>
-              <span className="text-xs text-muted">{area.province}</span>
-            </div>
-            <h2 className="mt-4 text-xl font-semibold tracking-tight text-foreground group-hover:text-accent">
-              {area.title}
-            </h2>
-            <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">
-              {area.description}
-            </p>
-            <span className="mt-6 text-sm font-medium text-accent">
-              View area guide &rarr;
-            </span>
-          </Link>
-        ))}
-      </div>
-
-      <p className="mx-auto mt-10 max-w-xl text-center text-sm text-muted">
-        Browse all cities on the{" "}
+      <p className="mx-auto mt-12 max-w-xl text-center text-sm text-muted">
+        Area guides also live on the{" "}
         <Link href="/areas" className="font-medium text-accent hover:text-accent-hover">
           areas index
+        </Link>
+        . Calculators are available from the{" "}
+        <Link href="/" className="font-medium text-accent hover:text-accent-hover">
+          homepage
         </Link>
         .
       </p>

@@ -6,9 +6,16 @@ export const transferDutyGuide2025: GuideArticle = {
   description:
     "Complete 2025 guide to SARS transfer duty in South Africa — current brackets, who pays, exemptions, VAT vs duty, and how to calculate transfer duty on your property purchase.",
   tag: "Tax",
-  readTime: "14 min read",
+  pillar: "buying-property",
+  subtopic: "transfer-duty",
+  secondaryPillars: ["property-finance"],
+  estimatedReadingTime: "14 min read",
   publishedDate: "2025-06-01",
   updatedDate: "2025-06-24",
+  lastReviewed: "2025-06-24",
+  reviewedBy: "PropertyPilot Editorial",
+  relatedCalculators: ["transfer-duty-calculator", "bond-calculator", "deposit-calculator"],
+  relatedGuides: ["first-time-home-buyer-guide-south-africa"],
   relatedTool: {
     slug: "transfer-duty-calculator",
     href: "/tools/transfer-duty-calculator",

@@ -1,4 +1,5 @@
 import { FAQSection } from "@/components/tools/FAQSection";
+import { RelatedContentSection } from "@/components/knowledge/RelatedContentSection";
 import { Button } from "@/components/ui/Button";
 import type { GuideArticle } from "@/lib/guides/types";
 import Link from "next/link";
@@ -89,6 +90,13 @@ export function GuidePageLayout({ guide }: GuidePageLayoutProps) {
 
         <div className="mx-auto mt-16 max-w-3xl">
           <FAQSection faqs={guide.faqs} />
+        </div>
+
+        <div className="mx-auto mt-16 max-w-3xl">
+          <RelatedContentSection
+            source={{ kind: "guide", slug: guide.slug }}
+            showContinueLearning
+          />
         </div>
       </article>
     </>

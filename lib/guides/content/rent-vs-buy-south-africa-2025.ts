@@ -6,9 +6,17 @@ export const rentVsBuyGuide2025: GuideArticle = {
   description:
     "Should you rent or buy in South Africa? Compare costs, flexibility, equity, and long-term wealth — with a 2025 view of interest rates, property prices, and when each option makes sense.",
   tag: "Property",
-  readTime: "14 min read",
+  pillar: "property-investment",
+  subtopic: "rent-vs-buy",
+  secondaryPillars: ["buying-property"],
+  estimatedReadingTime: "14 min read",
   publishedDate: "2025-06-01",
   updatedDate: "2025-06-24",
+  lastReviewed: "2025-06-24",
+  reviewedBy: "PropertyPilot Editorial",
+  relatedCalculators: ["rent-vs-buy-calculator", "bond-calculator", "rental-yield-calculator"],
+  relatedGuides: ["how-much-house-can-i-afford-south-africa"],
+  relatedAreas: ["sea-point", "blouberg"],
   relatedTool: {
     slug: "rent-vs-buy-calculator",
     href: "/tools/rent-vs-buy-calculator",

@@ -1,3 +1,6 @@
+import type { ContentPillarSlug } from "@/lib/knowledge/types";
+
+/** @deprecated Use pillar for categorisation — retained for badge styling during migration. */
 export type GuideTag = "Property" | "Finance" | "Tax";
 
 export type GuideFAQ = {
@@ -15,10 +18,16 @@ export type GuideArticle = {
   slug: string;
   title: string;
   description: string;
+  /** @deprecated Use pillar — kept for legacy references. */
   tag: GuideTag;
-  readTime: string;
+  pillar: ContentPillarSlug;
+  subtopic?: string;
+  secondaryPillars?: ContentPillarSlug[];
+  estimatedReadingTime: string;
   publishedDate: string;
   updatedDate: string;
+  lastReviewed: string;
+  reviewedBy?: string;
   relatedTool?: {
     slug: string;
     href: string;
@@ -28,6 +37,10 @@ export type GuideArticle = {
     href: string;
     label: string;
   }[];
+  /** Optional manual overrides — related engine fills gaps automatically. */
+  relatedGuides?: string[];
+  relatedCalculators?: string[];
+  relatedAreas?: string[];
   keywords?: string[];
   sections: GuideSection[];
   faqs: GuideFAQ[];
@@ -35,7 +48,13 @@ export type GuideArticle = {
 
 export type GuideSummary = Pick<
   GuideArticle,
-  "slug" | "title" | "description" | "tag" | "readTime"
+  | "slug"
+  | "title"
+  | "description"
+  | "pillar"
+  | "subtopic"
+  | "estimatedReadingTime"
+  | "lastReviewed"
 > & {
   href: string;
 };

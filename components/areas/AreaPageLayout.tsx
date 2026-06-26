@@ -1,4 +1,5 @@
 import { RelatedGuidesSection } from "@/components/areas/RelatedGuidesSection";
+import { RelatedContentSection } from "@/components/knowledge/RelatedContentSection";
 import { FAQSection } from "@/components/tools/FAQSection";
 import {
   AREA_PRICE_DISCLAIMER,
@@ -239,6 +240,10 @@ export function AreaPageLayout({ area }: AreaPageLayoutProps) {
 
       <div className="mx-auto mt-16 max-w-3xl">
         <FAQSection faqs={area.faqs} />
+      </div>
+
+      <div className="mx-auto mt-16 max-w-3xl">
+        <RelatedContentSection source={{ kind: "city", slug: area.slug }} />
       </div>
     </article>
   );

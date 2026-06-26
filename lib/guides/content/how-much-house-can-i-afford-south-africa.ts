@@ -6,9 +6,15 @@ export const houseAffordabilityGuide: GuideArticle = {
   description:
     "Learn how South African banks assess home loan affordability — income rules, debt ratios, deposits, and how to calculate the maximum property price you can afford in 2025.",
   tag: "Finance",
-  readTime: "14 min read",
+  pillar: "property-finance",
+  subtopic: "affordability",
+  estimatedReadingTime: "14 min read",
   publishedDate: "2025-06-01",
   updatedDate: "2025-06-24",
+  lastReviewed: "2025-06-24",
+  reviewedBy: "PropertyPilot Editorial",
+  relatedCalculators: ["affordability-calculator", "bond-calculator", "deposit-calculator"],
+  relatedGuides: ["bond-calculator-south-africa-2025", "first-time-home-buyer-guide-south-africa"],
   relatedTool: {
     slug: "affordability-calculator",
     href: "/tools/affordability-calculator",

@@ -2,6 +2,7 @@ import { ToolHero } from "@/components/tools/ToolHero";
 import { CalculatorCard } from "@/components/tools/CalculatorCard";
 import { ExplanationSection } from "@/components/tools/ExplanationSection";
 import { FAQSection } from "@/components/tools/FAQSection";
+import { RelatedContentSection } from "@/components/knowledge/RelatedContentSection";
 import { RelatedCalculators } from "@/components/tools/RelatedCalculators";
 import type { Tool, ToolCategory } from "@/lib/data/tools";
 
@@ -45,6 +46,9 @@ export function ToolPageLayout({
         <div className="mt-16 space-y-16">
           <FAQSection faqs={tool.faqs} />
           <RelatedCalculators tools={relatedTools} />
+          <RelatedContentSection
+            source={{ kind: "calculator", slug: tool.slug }}
+          />
         </div>
       </div>
     </>

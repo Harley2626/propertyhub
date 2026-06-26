@@ -4,11 +4,12 @@ import { staticSitePages } from "@/lib/site/pages";
 import { toolCategories } from "@/lib/data/tools";
 import { guideArticles } from "@/lib/guides/registry";
 import { locationGuides } from "@/lib/areas/registry";
+import { contentPillars } from "@/lib/knowledge/pillars";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const guidePages = guideArticles.map((guide) => ({
     url: absoluteUrl(`/guides/${guide.slug}`),
-    lastModified: new Date(guide.updatedDate),
+    lastModified: new Date(guide.lastReviewed ?? guide.updatedDate),
     changeFrequency: "monthly" as const,
     priority: 0.85,
   }));
@@ -36,6 +37,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: page.priority,
   }));
 
+  const pillarHubPages = contentPillars.map((pillar) => ({
+    url: absoluteUrl(`/guides/${pillar.slug}`),
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.88,
+  }));
+
   return [
     {
       url: siteConfig.url,
@@ -56,6 +64,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     ...staticPages,
+    ...pillarHubPages,
     ...guidePages,
     ...areaPages,
     ...toolPages,

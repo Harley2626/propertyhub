@@ -6,9 +6,15 @@ export const bondCalculatorGuide2025: GuideArticle = {
   description:
     "Complete 2025 guide to South African home loans — bond repayments, deposits, interest rates, loan terms, affordability rules, bond approval, and how to use a bond calculator.",
   tag: "Property",
-  readTime: "14 min read",
+  pillar: "property-finance",
+  subtopic: "bonds",
+  estimatedReadingTime: "14 min read",
   publishedDate: "2025-06-01",
   updatedDate: "2025-06-24",
+  lastReviewed: "2025-06-24",
+  reviewedBy: "PropertyPilot Editorial",
+  relatedCalculators: ["bond-calculator", "affordability-calculator", "deposit-calculator"],
+  relatedGuides: ["how-much-house-can-i-afford-south-africa", "first-time-home-buyer-guide-south-africa"],
   relatedTool: {
     slug: "bond-calculator",
     href: "/tools/bond-calculator",
