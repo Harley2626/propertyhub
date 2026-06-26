@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { absoluteUrl, siteConfig } from "@/lib/metadata";
+import { staticSitePages } from "@/lib/site/pages";
 import { toolCategories } from "@/lib/data/tools";
 import { guideArticles } from "@/lib/guides/registry";
 import { locationGuides } from "@/lib/areas/registry";
@@ -28,6 +29,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   );
 
+  const staticPages = staticSitePages.map((page) => ({
+    url: absoluteUrl(page.path),
+    lastModified: new Date(),
+    changeFrequency: page.changeFrequency,
+    priority: page.priority,
+  }));
+
   return [
     {
       url: siteConfig.url,
@@ -47,6 +55,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.9,
     },
+    ...staticPages,
     ...guidePages,
     ...areaPages,
     ...toolPages,
