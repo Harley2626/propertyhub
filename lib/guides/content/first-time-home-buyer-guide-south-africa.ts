@@ -18,6 +18,8 @@ export const firstTimeHomeBuyerGuide: GuideArticle = {
     "affordability-calculator",
     "transfer-duty-calculator",
     "bond-calculator",
+    "monthly-home-ownership-cost-calculator",
+    "property-offer-calculator",
   ],
   relatedAreas: ["cape-town", "somerset-west", "durbanville"],
   relatedTool: {

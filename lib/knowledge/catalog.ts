@@ -32,6 +32,16 @@ const calculatorCatalogMeta: Record<
     subtopic: "property",
     secondaryPillars: ["buying-property", "property-finance"],
   },
+  "monthly-home-ownership-cost-calculator": {
+    subtopic: "property",
+    secondaryPillars: ["property-finance", "buying-property"],
+    featured: true,
+  },
+  "property-offer-calculator": {
+    subtopic: "offer-to-purchase",
+    secondaryPillars: ["buying-property", "property-finance"],
+    featured: true,
+  },
   "rent-vs-buy-calculator": {
     subtopic: "property",
     secondaryPillars: ["property-investment", "buying-property"],

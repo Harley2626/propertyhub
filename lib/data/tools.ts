@@ -234,6 +234,91 @@ export const toolCategories: ToolCategory[] = [
         ],
       },
       {
+        slug: "monthly-home-ownership-cost-calculator",
+        title: "Monthly Home Ownership Cost Calculator",
+        description:
+          "Estimate total monthly cost of owning a home — bond, rates, levies, insurance, and maintenance.",
+        href: "/tools/monthly-home-ownership-cost-calculator",
+        explanation: {
+          title: "The true cost of owning a home",
+          paragraphs: [
+            "Your bond repayment is only part of the monthly cost of home ownership. Rates, levies, insurance, and maintenance add significantly to what you pay each month.",
+            "Municipal rates vary by city and property value. Sectional title owners pay body corporate levies for shared maintenance. Banks typically require building insurance on bonded properties.",
+            "Budgeting 1–2% of property value annually for maintenance helps avoid surprise repair costs. This calculator combines all recurring costs into one monthly figure.",
+          ],
+        },
+        faqs: [
+          {
+            question: "What is included in monthly ownership cost?",
+            answer:
+              "Bond repayment, municipal rates, body corporate levies (if applicable), building insurance, and a maintenance allowance based on property value.",
+          },
+          {
+            question: "How much should I budget for maintenance?",
+            answer:
+              "A common rule of thumb is 1–2% of property value per year. Older properties or those with pools or gardens may need more.",
+          },
+          {
+            question: "Are life insurance and bond fees included?",
+            answer:
+              "No. Banks often require life cover and charge admin fees separately. This calculator focuses on repayment and property carrying costs.",
+          },
+          {
+            question: "How do I find my municipal rates amount?",
+            answer:
+              "Check your latest rates account, ask the seller or agent, or request a rates clearance certificate during the sale process.",
+          },
+        ],
+        fields: [
+          { id: "price", label: "Property price", placeholder: "e.g. 2 000 000", type: "number" },
+          { id: "deposit", label: "Deposit (%)", placeholder: "e.g. 10", type: "number" },
+          { id: "rate", label: "Interest rate (%)", placeholder: "e.g. 11", type: "number" },
+          { id: "levy", label: "Monthly levy", placeholder: "e.g. 2 500", type: "number" },
+        ],
+      },
+      {
+        slug: "property-offer-calculator",
+        title: "Property Offer Calculator",
+        description:
+          "Plan your offer with upfront cost estimates, bond repayment, and a negotiation guidance range.",
+        href: "/tools/property-offer-calculator",
+        explanation: {
+          title: "Planning your property offer",
+          paragraphs: [
+            "Making an offer on a property requires more than the purchase price. You need to understand transfer duty, deposit requirements, bond repayments, and how much room there may be to negotiate.",
+            "This calculator uses the asking price and your property details to suggest a negotiation range. It is guidance for planning — not an automated valuation or comparable sales analysis.",
+            "Always work with your estate agent, obtain a comparative market analysis, and get bond pre-approval before submitting an offer.",
+          ],
+        },
+        faqs: [
+          {
+            question: "Is the suggested offer range a property valuation?",
+            answer:
+              "No. The range is based on typical negotiation patterns and your inputs about condition and intended use. It does not use comparable sales or market data.",
+          },
+          {
+            question: "What cash do I need on transfer?",
+            answer:
+              "Typically your deposit plus transfer duty and conveyancing fees. Transfer duty follows SARS brackets; attorney fees are usually 1–2% of the purchase price in addition.",
+          },
+          {
+            question: "Should I offer at the asking price?",
+            answer:
+              "It depends on market conditions, how long the property has been listed, and comparable sales. Use this tool to plan a range, then confirm with your agent.",
+          },
+          {
+            question: "Can I include suspensive conditions?",
+            answer:
+              "Yes. Most offers include conditions for bond approval and a satisfactory home inspection. Your agent or attorney can draft these.",
+          },
+        ],
+        fields: [
+          { id: "asking", label: "Asking price", placeholder: "e.g. 2 500 000", type: "number" },
+          { id: "type", label: "Property type", placeholder: "House / Apartment", type: "select", options: ["House", "Apartment", "Townhouse"] },
+          { id: "condition", label: "Condition", placeholder: "Good", type: "select", options: ["Excellent", "Good", "Fair", "Needs work"] },
+        ],
+      },
+      {
         slug: "rent-vs-buy-calculator",
         title: "Rent vs Buy Calculator",
         description:

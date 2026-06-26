@@ -7,6 +7,8 @@ import { DepositCalculator } from "@/components/calculators/DepositCalculator";
 import { EmergencyFundCalculator } from "@/components/calculators/EmergencyFundCalculator";
 import { IncomeTaxCalculator } from "@/components/calculators/IncomeTaxCalculator";
 import { InflationCalculator } from "@/components/calculators/InflationCalculator";
+import { MonthlyHomeOwnershipCostCalculator } from "@/components/calculators/MonthlyHomeOwnershipCostCalculator";
+import { PropertyOfferCalculator } from "@/components/calculators/PropertyOfferCalculator";
 import { RentalYieldCalculator } from "@/components/calculators/RentalYieldCalculator";
 import { RentVsBuyCalculator } from "@/components/calculators/RentVsBuyCalculator";
 import { RetirementCalculator } from "@/components/calculators/RetirementCalculator";
@@ -19,6 +21,8 @@ export const calculatorRegistry: Record<string, ComponentType> = {
   "affordability-calculator": AffordabilityCalculator,
   "rental-yield-calculator": RentalYieldCalculator,
   "deposit-calculator": DepositCalculator,
+  "monthly-home-ownership-cost-calculator": MonthlyHomeOwnershipCostCalculator,
+  "property-offer-calculator": PropertyOfferCalculator,
   "rent-vs-buy-calculator": RentVsBuyCalculator,
   "compound-interest-calculator": CompoundInterestCalculator,
   "retirement-calculator": RetirementCalculator,
