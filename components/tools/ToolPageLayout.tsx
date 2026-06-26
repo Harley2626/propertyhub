@@ -4,6 +4,7 @@ import { ExplanationSection } from "@/components/tools/ExplanationSection";
 import { FAQSection } from "@/components/tools/FAQSection";
 import { RelatedContentSection } from "@/components/knowledge/RelatedContentSection";
 import { RelatedCalculators } from "@/components/tools/RelatedCalculators";
+import { TrustCentreLinks } from "@/components/trust/TrustCentreLinks";
 import type { Tool, ToolCategory } from "@/lib/data/tools";
 
 type ToolPageLayoutProps = {
@@ -45,6 +46,9 @@ export function ToolPageLayout({
 
         <div className="mt-16 space-y-16">
           <FAQSection faqs={tool.faqs} />
+          <div className="flex justify-center">
+            <TrustCentreLinks />
+          </div>
           <RelatedCalculators tools={relatedTools} />
           <RelatedContentSection
             source={{ kind: "calculator", slug: tool.slug }}

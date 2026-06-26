@@ -1,7 +1,6 @@
 import Link from "next/link";
 import type { ContentPillarSlug } from "@/lib/knowledge/types";
-import { getPillarName, getSubtopicLabel } from "@/lib/knowledge/pillars";
-import { getPillarHubPath } from "@/lib/knowledge/pillars";
+import { getPillarHubPath, getPillarName, getSubtopicLabel } from "@/lib/knowledge/pillars";
 
 const pillarStyles: Record<ContentPillarSlug, string> = {
   "buying-property":
@@ -18,33 +17,23 @@ const pillarStyles: Record<ContentPillarSlug, string> = {
     "bg-indigo-50 text-indigo-700 dark:bg-indigo-950/50 dark:text-indigo-300",
 };
 
-type GuideHeroProps = {
+type AnswerHeroProps = {
   title: string;
   description: string;
   pillar: ContentPillarSlug;
   subtopic?: string;
-  estimatedReadingTime: string;
-  updatedDate: string;
   lastReviewed: string;
   reviewedBy?: string;
 };
 
-export function GuideHero({
+export function AnswerHero({
   title,
   description,
   pillar,
   subtopic,
-  estimatedReadingTime,
-  updatedDate,
   lastReviewed,
   reviewedBy,
-}: GuideHeroProps) {
-  const formattedUpdated = new Intl.DateTimeFormat("en-ZA", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  }).format(new Date(updatedDate));
-
+}: AnswerHeroProps) {
   const formattedReviewed = new Intl.DateTimeFormat("en-ZA", {
     day: "numeric",
     month: "long",
@@ -60,12 +49,27 @@ export function GuideHero({
       </div>
 
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
-        <Link
-          href={getPillarHubPath(pillar)}
-          className="inline-flex items-center gap-1 text-sm font-medium text-muted transition-colors hover:text-accent"
-        >
-          &larr; {getPillarName(pillar)}
-        </Link>
+        <nav aria-label="Breadcrumb" className="text-sm text-muted">
+          <ol className="flex flex-wrap items-center gap-2">
+            <li>
+              <Link href="/" className="hover:text-accent">
+                Home
+              </Link>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li>
+              <Link href="/answers" className="hover:text-accent">
+                Answers
+              </Link>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li>
+              <Link href={getPillarHubPath(pillar)} className="hover:text-accent">
+                {getPillarName(pillar)}
+              </Link>
+            </li>
+          </ol>
+        </nav>
 
         <div className="mt-6 flex flex-wrap items-center gap-3">
           <Link
@@ -79,7 +83,6 @@ export function GuideHero({
               {subtopicLabel}
             </span>
           ) : null}
-          <span className="text-sm text-muted">{estimatedReadingTime}</span>
           <span className="text-sm text-muted">
             Last reviewed {formattedReviewed}
           </span>
@@ -92,11 +95,14 @@ export function GuideHero({
           {description}
         </p>
         <p className="mt-3 text-sm text-muted">
-          Updated {formattedUpdated}
-          {reviewedBy ? ` · Reviewed by ${reviewedBy}` : null}
-          {" · "}
+          {reviewedBy ? `Reviewed by ${reviewedBy}` : null}
+          {reviewedBy ? " · " : null}
           <Link href="/methodology" className="text-accent hover:text-accent-hover">
             Methodology
+          </Link>
+          {" · "}
+          <Link href="/sources" className="text-accent hover:text-accent-hover">
+            Sources
           </Link>
         </p>
       </div>

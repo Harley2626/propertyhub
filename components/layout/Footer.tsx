@@ -9,6 +9,7 @@ const footerLinks = {
     { label: "Income Tax", href: "/tools/income-tax-calculator" },
   ],
   explore: [
+    { label: "Answers", href: "/answers" },
     { label: "Guides", href: "/guides" },
     { label: "Areas", href: "/areas" },
     { label: "Property Tools", href: "/#property-tools" },
@@ -17,6 +18,8 @@ const footerLinks = {
   company: [
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
+    { label: "Methodology", href: "/methodology" },
+    { label: "Sources", href: "/sources" },
   ],
   legal: [
     { label: "Privacy Policy", href: "/privacy-policy" },

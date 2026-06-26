@@ -11,6 +11,9 @@ export const contactConfig = {
 export const staticSitePages = [
   { path: "/about", priority: 0.75, changeFrequency: "monthly" as const },
   { path: "/contact", priority: 0.75, changeFrequency: "monthly" as const },
+  { path: "/answers", priority: 0.88, changeFrequency: "weekly" as const },
+  { path: "/methodology", priority: 0.65, changeFrequency: "monthly" as const },
+  { path: "/sources", priority: 0.65, changeFrequency: "monthly" as const },
   { path: "/privacy-policy", priority: 0.5, changeFrequency: "yearly" as const },
   { path: "/terms", priority: 0.5, changeFrequency: "yearly" as const },
   { path: "/disclaimer", priority: 0.5, changeFrequency: "yearly" as const },

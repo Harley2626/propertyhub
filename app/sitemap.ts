@@ -3,6 +3,7 @@ import { absoluteUrl, siteConfig } from "@/lib/metadata";
 import { staticSitePages } from "@/lib/site/pages";
 import { toolCategories } from "@/lib/data/tools";
 import { guideArticles } from "@/lib/guides/registry";
+import { answerArticles } from "@/lib/answers/registry";
 import { locationGuides } from "@/lib/areas/registry";
 import { contentPillars } from "@/lib/knowledge/pillars";
 
@@ -12,6 +13,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(guide.lastReviewed ?? guide.updatedDate),
     changeFrequency: "monthly" as const,
     priority: 0.85,
+  }));
+
+  const answerPages = answerArticles.map((answer) => ({
+    url: absoluteUrl(`/answers/${answer.slug}`),
+    lastModified: new Date(answer.lastReviewed ?? answer.updatedDate),
+    changeFrequency: "monthly" as const,
+    priority: 0.86,
   }));
 
   const areaPages = locationGuides.map((guide) => ({
@@ -66,6 +74,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...staticPages,
     ...pillarHubPages,
     ...guidePages,
+    ...answerPages,
     ...areaPages,
     ...toolPages,
   ];

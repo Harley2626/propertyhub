@@ -1,4 +1,5 @@
 import { cityGuides, locationGuides } from "@/lib/areas/registry";
+import { answerArticles } from "@/lib/answers/registry";
 import { guideArticles } from "@/lib/guides/registry";
 import { toolCategories } from "@/lib/data/tools";
 import { contentPillars, getPillarBySlug } from "./pillars";
@@ -101,6 +102,20 @@ function buildCalculatorCatalog(): CatalogItem[] {
   );
 }
 
+function buildAnswerCatalog(): CatalogItem[] {
+  return answerArticles.map((answer) => ({
+    kind: "answer" as const,
+    slug: answer.slug,
+    title: answer.title,
+    description: answer.description,
+    href: `/answers/${answer.slug}`,
+    pillar: answer.pillar,
+    subtopic: answer.subtopic,
+    updatedDate: answer.lastReviewed ?? answer.updatedDate,
+    secondaryPillars: answer.secondaryPillars,
+  }));
+}
+
 function buildGuideCatalog(): CatalogItem[] {
   return guideArticles.map((guide) => ({
     kind: "guide" as const,
@@ -140,6 +155,7 @@ export function buildContentCatalog(): CatalogItem[] {
   if (cachedCatalog) return cachedCatalog;
   cachedCatalog = [
     ...buildGuideCatalog(),
+    ...buildAnswerCatalog(),
     ...buildCalculatorCatalog(),
     ...buildAreaCatalog(),
   ];

@@ -1,4 +1,5 @@
 import { getGuideBySlug } from "@/lib/guides/registry";
+import { getAnswerBySlug } from "@/lib/answers/registry";
 import {
   buildContentCatalog,
   getCatalogItem,
@@ -47,48 +48,99 @@ function applyManualOverrides(
   source: ContentSource,
   result: RelatedContentResult,
 ): RelatedContentResult {
-  if (source.kind !== "guide") return result;
-  const guide = getGuideBySlug(source.slug);
-  if (!guide) return result;
+  if (source.kind === "guide") {
+    const guide = getGuideBySlug(source.slug);
+    if (!guide) return result;
 
-  const catalog = buildContentCatalog();
+    const catalog = buildContentCatalog();
 
-  const pick = (kind: CatalogItem["kind"], slugs?: string[]) => {
-    if (!slugs?.length) return undefined;
-    return slugs
-      .map((slug) => catalog.find((item) => item.kind === kind && item.slug === slug))
-      .filter((item): item is CatalogItem => Boolean(item));
-  };
+    const pick = (kind: CatalogItem["kind"], slugs?: string[]) => {
+      if (!slugs?.length) return undefined;
+      return slugs
+        .map((slug) => catalog.find((item) => item.kind === kind && item.slug === slug))
+        .filter((item): item is CatalogItem => Boolean(item));
+    };
 
-  const relatedGuides = pick("guide", guide.relatedGuides);
-  const relatedCalculators = pick("calculator", guide.relatedCalculators);
+    const relatedGuides = pick("guide", guide.relatedGuides);
+    const relatedCalculators = pick("calculator", guide.relatedCalculators);
 
-  let cities = result.cities;
-  let suburbs = result.suburbs;
-  if (guide.relatedAreas?.length) {
-    const areaItems = guide.relatedAreas
-      .map((slug) =>
-        catalog.find(
-          (item) =>
-            (item.kind === "city" || item.kind === "suburb") && item.slug === slug,
-        ),
-      )
-      .filter((item): item is CatalogItem => Boolean(item));
-    const manualCities = areaItems.filter((item) => item.kind === "city");
-    const manualSuburbs = areaItems.filter((item) => item.kind === "suburb");
-    if (manualCities.length) cities = mergeUnique(cities, manualCities, 4);
-    if (manualSuburbs.length) suburbs = mergeUnique(suburbs, manualSuburbs, 4);
+    let cities = result.cities;
+    let suburbs = result.suburbs;
+    if (guide.relatedAreas?.length) {
+      const areaItems = guide.relatedAreas
+        .map((slug) =>
+          catalog.find(
+            (item) =>
+              (item.kind === "city" || item.kind === "suburb") && item.slug === slug,
+          ),
+        )
+        .filter((item): item is CatalogItem => Boolean(item));
+      const manualCities = areaItems.filter((item) => item.kind === "city");
+      const manualSuburbs = areaItems.filter((item) => item.kind === "suburb");
+      if (manualCities.length) cities = mergeUnique(cities, manualCities, 4);
+      if (manualSuburbs.length) suburbs = mergeUnique(suburbs, manualSuburbs, 4);
+    }
+
+    return {
+      ...result,
+      guides: relatedGuides?.length ? mergeUnique(result.guides, relatedGuides, 6) : result.guides,
+      calculators: relatedCalculators?.length
+        ? mergeUnique(result.calculators, relatedCalculators, 6)
+        : result.calculators,
+      cities,
+      suburbs,
+    };
   }
 
-  return {
-    ...result,
-    guides: relatedGuides?.length ? mergeUnique(result.guides, relatedGuides, 6) : result.guides,
-    calculators: relatedCalculators?.length
-      ? mergeUnique(result.calculators, relatedCalculators, 6)
-      : result.calculators,
-    cities,
-    suburbs,
-  };
+  if (source.kind === "answer") {
+    const answer = getAnswerBySlug(source.slug);
+    if (!answer) return result;
+
+    const catalog = buildContentCatalog();
+
+    const pick = (kind: CatalogItem["kind"], slugs?: string[]) => {
+      if (!slugs?.length) return undefined;
+      return slugs
+        .map((slug) => catalog.find((item) => item.kind === kind && item.slug === slug))
+        .filter((item): item is CatalogItem => Boolean(item));
+    };
+
+    const relatedGuides = pick("guide", answer.relatedGuides);
+    const relatedCalculators = pick("calculator", answer.relatedCalculators);
+    const relatedAnswers = pick("answer", answer.relatedAnswers);
+
+    let cities = result.cities;
+    let suburbs = result.suburbs;
+    if (answer.relatedAreas?.length) {
+      const areaItems = answer.relatedAreas
+        .map((slug) =>
+          catalog.find(
+            (item) =>
+              (item.kind === "city" || item.kind === "suburb") && item.slug === slug,
+          ),
+        )
+        .filter((item): item is CatalogItem => Boolean(item));
+      const manualCities = areaItems.filter((item) => item.kind === "city");
+      const manualSuburbs = areaItems.filter((item) => item.kind === "suburb");
+      if (manualCities.length) cities = mergeUnique(cities, manualCities, 4);
+      if (manualSuburbs.length) suburbs = mergeUnique(suburbs, manualSuburbs, 4);
+    }
+
+    return {
+      ...result,
+      guides: relatedGuides?.length ? mergeUnique(result.guides, relatedGuides, 6) : result.guides,
+      calculators: relatedCalculators?.length
+        ? mergeUnique(result.calculators, relatedCalculators, 6)
+        : result.calculators,
+      answers: relatedAnswers?.length
+        ? mergeUnique(result.answers, relatedAnswers, 6)
+        : result.answers,
+      cities,
+      suburbs,
+    };
+  }
+
+  return result;
 }
 
 function mergeUnique(
@@ -133,6 +185,7 @@ export function getRelatedContent(source: ContentSource): RelatedContentResult {
       },
       guides: [],
       calculators: [],
+      answers: [],
       cities: [],
       suburbs: [],
       siblings: [],
@@ -159,6 +212,7 @@ export function getRelatedContent(source: ContentSource): RelatedContentResult {
     },
     guides: rankRelated(sourceItem, 4, "guide"),
     calculators: rankRelated(sourceItem, 4, "calculator"),
+    answers: rankRelated(sourceItem, 4, "answer"),
     cities: rankRelated(sourceItem, 3, "city"),
     suburbs: rankRelated(sourceItem, 3, "suburb"),
     siblings,
@@ -171,6 +225,7 @@ export function hasRelatedContent(result: RelatedContentResult): boolean {
   return (
     result.guides.length > 0 ||
     result.calculators.length > 0 ||
+    result.answers.length > 0 ||
     result.cities.length > 0 ||
     result.suburbs.length > 0 ||
     result.siblings.length > 0

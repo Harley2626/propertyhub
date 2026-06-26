@@ -7,7 +7,7 @@ export type ContentPillarSlug =
   | "property-data"
   | "calculators";
 
-export type ContentKind = "guide" | "calculator" | "city" | "suburb";
+export type ContentKind = "guide" | "calculator" | "city" | "suburb" | "answer";
 
 export type CatalogItem = {
   kind: ContentKind;
@@ -26,6 +26,7 @@ export type CatalogItem = {
 export type ContentSource =
   | { kind: "guide"; slug: string }
   | { kind: "calculator"; slug: string }
+  | { kind: "answer"; slug: string }
   | { kind: "city"; slug: string }
   | { kind: "suburb"; slug: string };
 
@@ -37,6 +38,7 @@ export type RelatedContentResult = {
   };
   guides: CatalogItem[];
   calculators: CatalogItem[];
+  answers: CatalogItem[];
   cities: CatalogItem[];
   suburbs: CatalogItem[];
   siblings: CatalogItem[];

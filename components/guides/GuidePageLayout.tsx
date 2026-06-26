@@ -1,5 +1,6 @@
 import { FAQSection } from "@/components/tools/FAQSection";
 import { RelatedContentSection } from "@/components/knowledge/RelatedContentSection";
+import { TrustCentreLinks } from "@/components/trust/TrustCentreLinks";
 import { Button } from "@/components/ui/Button";
 import type { GuideArticle } from "@/lib/guides/types";
 import Link from "next/link";
@@ -90,6 +91,9 @@ export function GuidePageLayout({ guide }: GuidePageLayoutProps) {
 
         <div className="mx-auto mt-16 max-w-3xl">
           <FAQSection faqs={guide.faqs} />
+          <div className="mt-8 flex justify-center">
+            <TrustCentreLinks />
+          </div>
         </div>
 
         <div className="mx-auto mt-16 max-w-3xl">

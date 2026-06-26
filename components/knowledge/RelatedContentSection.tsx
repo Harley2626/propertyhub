@@ -82,6 +82,7 @@ export function RelatedContentSection({
       <div className="mt-8 grid gap-8 lg:grid-cols-2">
         <ResourceList heading="Related guides" items={related.guides} />
         <ResourceList heading="Related calculators" items={related.calculators} />
+        <ResourceList heading="Property answers" items={related.answers} />
         <ResourceList heading="City guides" items={related.cities} />
         <ResourceList heading="Suburb guides" items={related.suburbs} />
       </div>
