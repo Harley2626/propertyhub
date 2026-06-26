@@ -1,5 +1,6 @@
 import { FAQSection } from "@/components/tools/FAQSection";
 import { RelatedContentSection } from "@/components/knowledge/RelatedContentSection";
+import { AuthorAttribution } from "@/components/authors/AuthorAttribution";
 import { getToolBySlug } from "@/lib/data/tools";
 import { getGuideBySlug } from "@/lib/guides/registry";
 import { getAnswerBySlug } from "@/lib/answers/registry";
@@ -100,12 +101,6 @@ function RelatedLinks({ answer }: AnswerPageLayoutProps) {
 }
 
 export function AnswerPageLayout({ answer }: AnswerPageLayoutProps) {
-  const formattedReviewed = new Intl.DateTimeFormat("en-ZA", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  }).format(new Date(answer.lastReviewed));
-
   return (
     <article className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
       <div className="mx-auto max-w-3xl space-y-16">
@@ -206,24 +201,19 @@ export function AnswerPageLayout({ answer }: AnswerPageLayoutProps) {
           </section>
         ) : null}
 
-        <section
-          aria-labelledby="review-metadata-heading"
-          className="rounded-xl border border-border bg-muted-bg/50 p-6"
-        >
-          <h2 id="review-metadata-heading" className="sr-only">
-            Review information
-          </h2>
-          <p className="text-sm text-muted">
-            Last reviewed {formattedReviewed}
-            {answer.reviewedBy ? ` by ${answer.reviewedBy}` : ""}. PropertyPilot
-            answers are updated when SARS rates, regulations, or market
-            conventions change.{" "}
-            <Link href="/methodology" className="text-accent hover:text-accent-hover">
-              Read our review policy
-            </Link>
-            .
-          </p>
-        </section>
+        <AuthorAttribution
+          authorSlug={answer.authorSlug}
+          lastReviewed={answer.lastReviewed}
+          variant="card"
+        />
+        <p className="mt-4 text-sm text-muted">
+          PropertyPilot answers are updated when SARS rates, regulations, or
+          market conventions change.{" "}
+          <Link href="/methodology" className="text-accent hover:text-accent-hover">
+            Read our review policy
+          </Link>
+          .
+        </p>
       </div>
 
       {answer.faqs.length > 0 ? (

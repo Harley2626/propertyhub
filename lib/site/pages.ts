@@ -10,6 +10,7 @@ export const contactConfig = {
 /** Static marketing and legal pages included in the sitemap. */
 export const staticSitePages = [
   { path: "/about", priority: 0.75, changeFrequency: "monthly" as const },
+  { path: "/authors", priority: 0.72, changeFrequency: "monthly" as const },
   { path: "/contact", priority: 0.75, changeFrequency: "monthly" as const },
   { path: "/answers", priority: 0.88, changeFrequency: "weekly" as const },
   { path: "/methodology", priority: 0.65, changeFrequency: "monthly" as const },

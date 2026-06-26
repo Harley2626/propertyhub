@@ -12,7 +12,7 @@ export const bondCalculatorGuide2025: GuideArticle = {
   publishedDate: "2025-06-01",
   updatedDate: "2025-06-24",
   lastReviewed: "2025-06-24",
-  reviewedBy: "PropertyPilot Editorial",
+  authorSlug: "jared-devlin",
   relatedCalculators: ["bond-calculator", "affordability-calculator", "deposit-calculator"],
   relatedGuides: ["how-much-house-can-i-afford-south-africa", "first-time-home-buyer-guide-south-africa"],
   relatedTool: {

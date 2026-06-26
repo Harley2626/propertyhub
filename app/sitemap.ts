@@ -4,6 +4,7 @@ import { staticSitePages } from "@/lib/site/pages";
 import { toolCategories } from "@/lib/data/tools";
 import { guideArticles } from "@/lib/guides/registry";
 import { answerArticles } from "@/lib/answers/registry";
+import { getAuthorSummaries } from "@/lib/authors/profiles";
 import { locationGuides } from "@/lib/areas/registry";
 import { contentPillars } from "@/lib/knowledge/pillars";
 
@@ -52,6 +53,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.88,
   }));
 
+  const authorPages = getAuthorSummaries().map((author) => ({
+    url: absoluteUrl(author.href),
+    lastModified: new Date(author.lastUpdated),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
   return [
     {
       url: siteConfig.url,
@@ -72,6 +80,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     ...staticPages,
+    ...authorPages,
     ...pillarHubPages,
     ...guidePages,
     ...answerPages,

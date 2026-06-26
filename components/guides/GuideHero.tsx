@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { ContentPillarSlug } from "@/lib/knowledge/types";
 import { getPillarName, getSubtopicLabel } from "@/lib/knowledge/pillars";
 import { getPillarHubPath } from "@/lib/knowledge/pillars";
+import { AuthorAttribution } from "@/components/authors/AuthorAttribution";
 
 const pillarStyles: Record<ContentPillarSlug, string> = {
   "buying-property":
@@ -26,7 +27,7 @@ type GuideHeroProps = {
   estimatedReadingTime: string;
   updatedDate: string;
   lastReviewed: string;
-  reviewedBy?: string;
+  authorSlug?: string;
 };
 
 export function GuideHero({
@@ -37,7 +38,7 @@ export function GuideHero({
   estimatedReadingTime,
   updatedDate,
   lastReviewed,
-  reviewedBy,
+  authorSlug,
 }: GuideHeroProps) {
   const formattedUpdated = new Intl.DateTimeFormat("en-ZA", {
     day: "numeric",
@@ -93,7 +94,8 @@ export function GuideHero({
         </p>
         <p className="mt-3 text-sm text-muted">
           Updated {formattedUpdated}
-          {reviewedBy ? ` · Reviewed by ${reviewedBy}` : null}
+          {" · "}
+          <AuthorAttribution authorSlug={authorSlug} lastReviewed={lastReviewed} />
           {" · "}
           <Link href="/methodology" className="text-accent hover:text-accent-hover">
             Methodology

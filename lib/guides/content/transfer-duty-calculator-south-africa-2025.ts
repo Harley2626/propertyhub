@@ -13,7 +13,7 @@ export const transferDutyGuide2025: GuideArticle = {
   publishedDate: "2025-06-01",
   updatedDate: "2025-06-24",
   lastReviewed: "2025-06-24",
-  reviewedBy: "PropertyPilot Editorial",
+  authorSlug: "jared-devlin",
   relatedCalculators: ["transfer-duty-calculator", "bond-calculator", "deposit-calculator"],
   relatedGuides: ["first-time-home-buyer-guide-south-africa"],
   relatedTool: {

@@ -33,7 +33,7 @@ export default async function AnswerSlugPage({ params }: Props) {
         pillar={answer.pillar}
         subtopic={answer.subtopic}
         lastReviewed={answer.lastReviewed}
-        reviewedBy={answer.reviewedBy}
+        authorSlug={answer.authorSlug}
       />
       <AnswerPageLayout answer={answer} />
     </>

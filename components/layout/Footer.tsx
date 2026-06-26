@@ -16,6 +16,7 @@ const footerLinks = {
     { label: "Finance Tools", href: "/#finance-tools" },
   ],
   company: [
+    { label: "Authors", href: "/authors" },
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
     { label: "Methodology", href: "/methodology" },

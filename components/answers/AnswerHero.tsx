@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ContentPillarSlug } from "@/lib/knowledge/types";
 import { getPillarHubPath, getPillarName, getSubtopicLabel } from "@/lib/knowledge/pillars";
+import { AuthorAttribution } from "@/components/authors/AuthorAttribution";
 
 const pillarStyles: Record<ContentPillarSlug, string> = {
   "buying-property":
@@ -23,7 +24,7 @@ type AnswerHeroProps = {
   pillar: ContentPillarSlug;
   subtopic?: string;
   lastReviewed: string;
-  reviewedBy?: string;
+  authorSlug?: string;
 };
 
 export function AnswerHero({
@@ -32,7 +33,7 @@ export function AnswerHero({
   pillar,
   subtopic,
   lastReviewed,
-  reviewedBy,
+  authorSlug,
 }: AnswerHeroProps) {
   const formattedReviewed = new Intl.DateTimeFormat("en-ZA", {
     day: "numeric",
@@ -95,8 +96,8 @@ export function AnswerHero({
           {description}
         </p>
         <p className="mt-3 text-sm text-muted">
-          {reviewedBy ? `Reviewed by ${reviewedBy}` : null}
-          {reviewedBy ? " · " : null}
+          <AuthorAttribution authorSlug={authorSlug} lastReviewed={lastReviewed} />
+          {" · "}
           <Link href="/methodology" className="text-accent hover:text-accent-hover">
             Methodology
           </Link>

@@ -1,4 +1,6 @@
 import { absoluteUrl, siteConfig } from "@/lib/metadata";
+import { buildAuthorPersonReference } from "@/lib/authors/author-page";
+import { resolveAuthor } from "@/lib/authors/resolve";
 import { getPillarHubPath, getPillarName } from "@/lib/knowledge/pillars";
 import type { Metadata } from "next";
 import { getGuideBySlug } from "./registry";
@@ -46,6 +48,8 @@ export function buildGuideSchema(guide: GuideArticle) {
   const pageUrl = buildGuidePageUrl(guide.slug);
   const pillarName = getPillarName(guide.pillar);
   const pillarHubUrl = absoluteUrl(getPillarHubPath(guide.pillar));
+  const author = resolveAuthor(guide.authorSlug);
+  const authorRef = buildAuthorPersonReference(author);
 
   return [
     {
@@ -60,11 +64,8 @@ export function buildGuideSchema(guide: GuideArticle) {
         "@type": "WebPage",
         "@id": pageUrl,
       },
-      author: {
-        "@type": "Organization",
-        name: guide.reviewedBy ?? siteConfig.name,
-        url: siteConfig.url,
-      },
+      author: authorRef,
+      editor: authorRef,
       publisher: {
         "@type": "Organization",
         name: siteConfig.name,

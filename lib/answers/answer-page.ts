@@ -1,4 +1,6 @@
 import { absoluteUrl, siteConfig } from "@/lib/metadata";
+import { buildAuthorPersonReference } from "@/lib/authors/author-page";
+import { resolveAuthor } from "@/lib/authors/resolve";
 import { getPillarHubPath, getPillarName } from "@/lib/knowledge/pillars";
 import type { Metadata } from "next";
 import { getAnswerBySlug } from "./registry";
@@ -46,6 +48,8 @@ export function buildAnswerSchema(answer: AnswerArticle) {
   const pageUrl = buildAnswerPageUrl(answer.slug);
   const pillarName = getPillarName(answer.pillar);
   const pillarHubUrl = absoluteUrl(getPillarHubPath(answer.pillar));
+  const author = resolveAuthor(answer.authorSlug);
+  const authorRef = buildAuthorPersonReference(author);
 
   const faqEntities = [
     {
@@ -79,11 +83,8 @@ export function buildAnswerSchema(answer: AnswerArticle) {
         "@type": "WebPage",
         "@id": pageUrl,
       },
-      author: {
-        "@type": "Organization",
-        name: answer.reviewedBy ?? siteConfig.name,
-        url: siteConfig.url,
-      },
+      author: authorRef,
+      editor: authorRef,
       publisher: {
         "@type": "Organization",
         name: siteConfig.name,

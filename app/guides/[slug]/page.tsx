@@ -65,7 +65,7 @@ export default async function GuideSlugPage({ params }: Props) {
         estimatedReadingTime={guide.estimatedReadingTime}
         updatedDate={guide.updatedDate}
         lastReviewed={guide.lastReviewed}
-        reviewedBy={guide.reviewedBy}
+        authorSlug={guide.authorSlug}
       />
       <GuidePageLayout guide={guide} />
     </>

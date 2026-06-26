@@ -27,7 +27,9 @@ export type GuideArticle = {
   publishedDate: string;
   updatedDate: string;
   lastReviewed: string;
+  /** @deprecated Use authorSlug — kept for legacy content during migration. */
   reviewedBy?: string;
+  authorSlug?: string;
   relatedTool?: {
     slug: string;
     href: string;

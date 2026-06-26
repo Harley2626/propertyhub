@@ -1,5 +1,6 @@
 import { FAQSection } from "@/components/tools/FAQSection";
 import { RelatedContentSection } from "@/components/knowledge/RelatedContentSection";
+import { AuthorAttribution } from "@/components/authors/AuthorAttribution";
 import { TrustCentreLinks } from "@/components/trust/TrustCentreLinks";
 import { Button } from "@/components/ui/Button";
 import type { GuideArticle } from "@/lib/guides/types";
@@ -90,6 +91,13 @@ export function GuidePageLayout({ guide }: GuidePageLayoutProps) {
         </div>
 
         <div className="mx-auto mt-16 max-w-3xl">
+          <div className="mb-8">
+            <AuthorAttribution
+              authorSlug={guide.authorSlug}
+              lastReviewed={guide.lastReviewed}
+              variant="card"
+            />
+          </div>
           <FAQSection faqs={guide.faqs} />
           <div className="mt-8 flex justify-center">
             <TrustCentreLinks />

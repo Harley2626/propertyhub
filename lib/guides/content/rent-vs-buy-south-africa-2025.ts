@@ -13,7 +13,7 @@ export const rentVsBuyGuide2025: GuideArticle = {
   publishedDate: "2025-06-01",
   updatedDate: "2025-06-24",
   lastReviewed: "2025-06-24",
-  reviewedBy: "PropertyPilot Editorial",
+  authorSlug: "jared-devlin",
   relatedCalculators: ["rent-vs-buy-calculator", "bond-calculator", "rental-yield-calculator"],
   relatedGuides: ["how-much-house-can-i-afford-south-africa"],
   relatedAreas: ["sea-point", "blouberg"],
